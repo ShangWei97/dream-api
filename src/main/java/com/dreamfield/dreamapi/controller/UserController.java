@@ -174,7 +174,8 @@ public class UserController {
 			user.setPassword(reqBean.getPassword());
 			user.setId(user_reslt.getId());
 			userMapper.updateUser(user);
-			returnMsg.setData("注册成功");
+			returnMsg.setMsg("注册成功");
+			returnMsg.setData(user_reslt.getId());
 			return returnMsg;
 		}else {
 			returnMsg.setMsg("验证码填写错误");
