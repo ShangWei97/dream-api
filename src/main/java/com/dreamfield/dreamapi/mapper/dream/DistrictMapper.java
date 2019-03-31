@@ -1,16 +1,13 @@
 package com.dreamfield.dreamapi.mapper.dream;
 
-import com.dreamfield.dreamapi.response.DistricResponse;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
-
+import org.apache.ibatis.annotations.Param;
+import com.dreamfield.dreamapi.model.dream.District;
+import com.dreamfield.dreamapi.mapper.dream.base.DistrictBaseMapper;
 /**
- * @author: shangwei
- * @date: 2019-03-28 19:26
- */
-@Mapper
-public interface DistrictMapper {
-	List<DistricResponse> getDistrict(@Param("parentId")Integer parent);
+*  @author shangwei
+*/
+public interface DistrictMapper extends DistrictBaseMapper{
+
+
 }

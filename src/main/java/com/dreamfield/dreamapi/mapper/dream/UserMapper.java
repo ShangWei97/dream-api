@@ -1,11 +1,15 @@
 package com.dreamfield.dreamapi.mapper.dream;
 
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+import com.dreamfield.dreamapi.model.dream.User;
+import com.dreamfield.dreamapi.mapper.dream.base.UserBaseMapper;
 /**
- * @author: shangwei
- * @date: 2019-03-28 19:30
- */
-public interface UserMapper {
+*  @author shangwei
+*/
+public interface UserMapper extends UserBaseMapper{
 
+	void updateByUserTel(@Param("userTel")String userTel,@Param("loginCode")String loginCode);
 
 
 }

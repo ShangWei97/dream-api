@@ -1,0 +1,982 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dreamfield.dreamapi.mapper.dream.base.DistrictBaseMapper">
+
+
+    <insert id="insertDistrict" >
+        INSERT INTO `district`
+        (
+        <trim suffixOverrides=",">
+                    <if test="id!=null">
+                        `id`,
+                    </if>
+                    <if test="name!=null">
+                        `name`,
+                    </if>
+                    <if test="parentId!=null">
+                        `parent_id`,
+                    </if>
+                    <if test="initial!=null">
+                        `initial`,
+                    </if>
+                    <if test="initials!=null">
+                        `initials`,
+                    </if>
+                    <if test="pinyin!=null">
+                        `pinyin`,
+                    </if>
+                    <if test="extra!=null">
+                        `extra`,
+                    </if>
+                    <if test="suffix!=null">
+                        `suffix`,
+                    </if>
+                    <if test="code!=null">
+                        `code`,
+                    </if>
+                    <if test="areaCode!=null">
+                        `area_code`,
+                    </if>
+                    <if test="order!=null">
+                        `order`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="id!=null">
+                    #{id},
+                </if>
+                <if test="name!=null">
+                    #{name},
+                </if>
+                <if test="parentId!=null">
+                    #{parentId},
+                </if>
+                <if test="initial!=null">
+                    #{initial},
+                </if>
+                <if test="initials!=null">
+                    #{initials},
+                </if>
+                <if test="pinyin!=null">
+                    #{pinyin},
+                </if>
+                <if test="extra!=null">
+                    #{extra},
+                </if>
+                <if test="suffix!=null">
+                    #{suffix},
+                </if>
+                <if test="code!=null">
+                    #{code},
+                </if>
+                <if test="areaCode!=null">
+                    #{areaCode},
+                </if>
+                <if test="order!=null">
+                    #{order},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updateDistrict">
+        UPDATE `district`
+        SET
+        <trim suffixOverrides=",">
+            <if test="id != null">
+                `id` = #{id},
+            </if>
+            <if test="name != null and name!=''">
+                `name` = #{name},
+            </if>
+            <if test="parentId != null">
+                `parent_id` = #{parentId},
+            </if>
+            <if test="initial != null and initial!=''">
+                `initial` = #{initial},
+            </if>
+            <if test="initials != null and initials!=''">
+                `initials` = #{initials},
+            </if>
+            <if test="pinyin != null and pinyin!=''">
+                `pinyin` = #{pinyin},
+            </if>
+            <if test="extra != null and extra!=''">
+                `extra` = #{extra},
+            </if>
+            <if test="suffix != null and suffix!=''">
+                `suffix` = #{suffix},
+            </if>
+            <if test="code != null and code!=''">
+                `code` = #{code},
+            </if>
+            <if test="areaCode != null and areaCode!=''">
+                `area_code` = #{areaCode},
+            </if>
+            <if test="order != null">
+                `order` = #{order},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `district`
+        SET
+        <trim suffixOverrides=",">
+        <if test="set.id != null">
+            `id` = #{set.id},
+        </if>
+        <if test="set.name != null and set.name!=''">
+            `name` = #{set.name},
+        </if>
+        <if test="set.parentId != null">
+            `parent_id` = #{set.parentId},
+        </if>
+        <if test="set.initial != null and set.initial!=''">
+            `initial` = #{set.initial},
+        </if>
+        <if test="set.initials != null and set.initials!=''">
+            `initials` = #{set.initials},
+        </if>
+        <if test="set.pinyin != null and set.pinyin!=''">
+            `pinyin` = #{set.pinyin},
+        </if>
+        <if test="set.extra != null and set.extra!=''">
+            `extra` = #{set.extra},
+        </if>
+        <if test="set.suffix != null and set.suffix!=''">
+            `suffix` = #{set.suffix},
+        </if>
+        <if test="set.code != null and set.code!=''">
+            `code` = #{set.code},
+        </if>
+        <if test="set.areaCode != null and set.areaCode!=''">
+            `area_code` = #{set.areaCode},
+        </if>
+        <if test="set.order != null">
+            `order` = #{set.order},
+        </if>
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.idList != null">
+                    `id` in
+                    <foreach collection="where.idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.idSt !=null">
+                `id` >= #{where.idSt} and
+            </if>
+            <if test="where.idEd!=null">
+                `id` &lt;= #{where.idEd} and
+            </if>
+                <if test="where.nameList != null">
+                    `name` in
+                    <foreach collection="where.nameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyName!=null and where.fuzzyName.size()>0">
+                (
+                <foreach collection="where.fuzzyName"  separator="or" item="item">
+                    `Name` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyName!=null and where.rightFuzzyName.size()>0">
+                (
+                <foreach collection="where.rightFuzzyName"  separator="or" item="item">
+                    `Name` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.parentIdList != null">
+                    `parent_id` in
+                    <foreach collection="where.parentIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.parentIdSt !=null">
+                `parent_id` >= #{where.parentIdSt} and
+            </if>
+            <if test="where.parentIdEd!=null">
+                `parent_id` &lt;= #{where.parentIdEd} and
+            </if>
+                <if test="where.initialList != null">
+                    `initial` in
+                    <foreach collection="where.initialList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyInitial!=null and where.fuzzyInitial.size()>0">
+                (
+                <foreach collection="where.fuzzyInitial"  separator="or" item="item">
+                    `Initial` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyInitial!=null and where.rightFuzzyInitial.size()>0">
+                (
+                <foreach collection="where.rightFuzzyInitial"  separator="or" item="item">
+                    `Initial` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.initialsList != null">
+                    `initials` in
+                    <foreach collection="where.initialsList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyInitials!=null and where.fuzzyInitials.size()>0">
+                (
+                <foreach collection="where.fuzzyInitials"  separator="or" item="item">
+                    `Initials` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyInitials!=null and where.rightFuzzyInitials.size()>0">
+                (
+                <foreach collection="where.rightFuzzyInitials"  separator="or" item="item">
+                    `Initials` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.pinyinList != null">
+                    `pinyin` in
+                    <foreach collection="where.pinyinList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyPinyin!=null and where.fuzzyPinyin.size()>0">
+                (
+                <foreach collection="where.fuzzyPinyin"  separator="or" item="item">
+                    `Pinyin` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyPinyin!=null and where.rightFuzzyPinyin.size()>0">
+                (
+                <foreach collection="where.rightFuzzyPinyin"  separator="or" item="item">
+                    `Pinyin` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.extraList != null">
+                    `extra` in
+                    <foreach collection="where.extraList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyExtra!=null and where.fuzzyExtra.size()>0">
+                (
+                <foreach collection="where.fuzzyExtra"  separator="or" item="item">
+                    `Extra` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyExtra!=null and where.rightFuzzyExtra.size()>0">
+                (
+                <foreach collection="where.rightFuzzyExtra"  separator="or" item="item">
+                    `Extra` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.suffixList != null">
+                    `suffix` in
+                    <foreach collection="where.suffixList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzySuffix!=null and where.fuzzySuffix.size()>0">
+                (
+                <foreach collection="where.fuzzySuffix"  separator="or" item="item">
+                    `Suffix` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzySuffix!=null and where.rightFuzzySuffix.size()>0">
+                (
+                <foreach collection="where.rightFuzzySuffix"  separator="or" item="item">
+                    `Suffix` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.codeList != null">
+                    `code` in
+                    <foreach collection="where.codeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyCode!=null and where.fuzzyCode.size()>0">
+                (
+                <foreach collection="where.fuzzyCode"  separator="or" item="item">
+                    `Code` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyCode!=null and where.rightFuzzyCode.size()>0">
+                (
+                <foreach collection="where.rightFuzzyCode"  separator="or" item="item">
+                    `Code` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.areaCodeList != null">
+                    `area_code` in
+                    <foreach collection="where.areaCodeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyAreaCode!=null and where.fuzzyAreaCode.size()>0">
+                (
+                <foreach collection="where.fuzzyAreaCode"  separator="or" item="item">
+                    `Area_code` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyAreaCode!=null and where.rightFuzzyAreaCode.size()>0">
+                (
+                <foreach collection="where.rightFuzzyAreaCode"  separator="or" item="item">
+                    `Area_code` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.orderList != null">
+                    `order` in
+                    <foreach collection="where.orderList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.orderSt !=null">
+                `order` >= #{where.orderSt} and
+            </if>
+            <if test="where.orderEd!=null">
+                `order` &lt;= #{where.orderEd} and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="com.dreamfield.dreamapi.model.dream.District" id="DistrictMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="initial" column="initial"/>
+        <result property="initials" column="initials"/>
+        <result property="pinyin" column="pinyin"/>
+        <result property="extra" column="extra"/>
+        <result property="suffix" column="suffix"/>
+        <result property="code" column="code"/>
+        <result property="areaCode" column="area_code"/>
+        <result property="order" column="order"/>
+    </resultMap>
+
+
+    <select id="queryDistrict" resultMap="DistrictMap">
+        select
+        <include refid="baseResult"></include>
+        from  `district`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="name != null and name!=''">
+                `name` = #{name} and
+            </if>
+            <if test="parentId != null">
+                `parent_id` = #{parentId} and
+            </if>
+            <if test="initial != null and initial!=''">
+                `initial` = #{initial} and
+            </if>
+            <if test="initials != null and initials!=''">
+                `initials` = #{initials} and
+            </if>
+            <if test="pinyin != null and pinyin!=''">
+                `pinyin` = #{pinyin} and
+            </if>
+            <if test="extra != null and extra!=''">
+                `extra` = #{extra} and
+            </if>
+            <if test="suffix != null and suffix!=''">
+                `suffix` = #{suffix} and
+            </if>
+            <if test="code != null and code!=''">
+                `code` = #{code} and
+            </if>
+            <if test="areaCode != null and areaCode!=''">
+                `area_code` = #{areaCode} and
+            </if>
+            <if test="order != null">
+                `order` = #{order} and
+            </if>
+            <if test = "(_parameter instanceof com.dreamfield.dreamapi.model.dream.District$QueryBuilder) == true">
+                <if test="idList != null">
+                    `id` in
+                    <foreach collection="idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                <if test="nameList != null">
+                    `name` in
+                    <foreach collection="nameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyName!=null and fuzzyName.size()>0">
+                    (
+                    <foreach collection="fuzzyName"  separator="or" item="item">
+                        `Name` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyName!=null and rightFuzzyName.size()>0">
+                    (
+                    <foreach collection="rightFuzzyName"  separator="or" item="item">
+                        `Name` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="parentIdList != null">
+                    `parent_id` in
+                    <foreach collection="parentIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="parentIdSt !=null">
+                    `parent_id` >= #{parentIdSt} and
+                </if>
+                <if test="parentIdEd!=null">
+                    `parent_id` &lt;= #{parentIdEd} and
+                </if>
+                <if test="initialList != null">
+                    `initial` in
+                    <foreach collection="initialList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyInitial!=null and fuzzyInitial.size()>0">
+                    (
+                    <foreach collection="fuzzyInitial"  separator="or" item="item">
+                        `Initial` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyInitial!=null and rightFuzzyInitial.size()>0">
+                    (
+                    <foreach collection="rightFuzzyInitial"  separator="or" item="item">
+                        `Initial` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="initialsList != null">
+                    `initials` in
+                    <foreach collection="initialsList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyInitials!=null and fuzzyInitials.size()>0">
+                    (
+                    <foreach collection="fuzzyInitials"  separator="or" item="item">
+                        `Initials` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyInitials!=null and rightFuzzyInitials.size()>0">
+                    (
+                    <foreach collection="rightFuzzyInitials"  separator="or" item="item">
+                        `Initials` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="pinyinList != null">
+                    `pinyin` in
+                    <foreach collection="pinyinList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyPinyin!=null and fuzzyPinyin.size()>0">
+                    (
+                    <foreach collection="fuzzyPinyin"  separator="or" item="item">
+                        `Pinyin` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyPinyin!=null and rightFuzzyPinyin.size()>0">
+                    (
+                    <foreach collection="rightFuzzyPinyin"  separator="or" item="item">
+                        `Pinyin` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="extraList != null">
+                    `extra` in
+                    <foreach collection="extraList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyExtra!=null and fuzzyExtra.size()>0">
+                    (
+                    <foreach collection="fuzzyExtra"  separator="or" item="item">
+                        `Extra` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyExtra!=null and rightFuzzyExtra.size()>0">
+                    (
+                    <foreach collection="rightFuzzyExtra"  separator="or" item="item">
+                        `Extra` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="suffixList != null">
+                    `suffix` in
+                    <foreach collection="suffixList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzySuffix!=null and fuzzySuffix.size()>0">
+                    (
+                    <foreach collection="fuzzySuffix"  separator="or" item="item">
+                        `Suffix` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzySuffix!=null and rightFuzzySuffix.size()>0">
+                    (
+                    <foreach collection="rightFuzzySuffix"  separator="or" item="item">
+                        `Suffix` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="codeList != null">
+                    `code` in
+                    <foreach collection="codeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyCode!=null and fuzzyCode.size()>0">
+                    (
+                    <foreach collection="fuzzyCode"  separator="or" item="item">
+                        `Code` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyCode!=null and rightFuzzyCode.size()>0">
+                    (
+                    <foreach collection="rightFuzzyCode"  separator="or" item="item">
+                        `Code` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="areaCodeList != null">
+                    `area_code` in
+                    <foreach collection="areaCodeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyAreaCode!=null and fuzzyAreaCode.size()>0">
+                    (
+                    <foreach collection="fuzzyAreaCode"  separator="or" item="item">
+                        `Area_code` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyAreaCode!=null and rightFuzzyAreaCode.size()>0">
+                    (
+                    <foreach collection="rightFuzzyAreaCode"  separator="or" item="item">
+                        `Area_code` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="orderList != null">
+                    `order` in
+                    <foreach collection="orderList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="orderSt !=null">
+                    `order` >= #{orderSt} and
+                </if>
+                <if test="orderEd!=null">
+                    `order` &lt;= #{orderEd} and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryDistrictLimit1" resultMap="DistrictMap">
+        select
+        <include refid="baseResult"></include>
+        from  `district`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="name != null and name!=''">
+                `name` = #{name} and
+            </if>
+            <if test="parentId != null">
+                `parent_id` = #{parentId} and
+            </if>
+            <if test="initial != null and initial!=''">
+                `initial` = #{initial} and
+            </if>
+            <if test="initials != null and initials!=''">
+                `initials` = #{initials} and
+            </if>
+            <if test="pinyin != null and pinyin!=''">
+                `pinyin` = #{pinyin} and
+            </if>
+            <if test="extra != null and extra!=''">
+                `extra` = #{extra} and
+            </if>
+            <if test="suffix != null and suffix!=''">
+                `suffix` = #{suffix} and
+            </if>
+            <if test="code != null and code!=''">
+                `code` = #{code} and
+            </if>
+            <if test="areaCode != null and areaCode!=''">
+                `area_code` = #{areaCode} and
+            </if>
+            <if test="order != null">
+                `order` = #{order} and
+            </if>
+            <if test = "(_parameter instanceof com.dreamfield.dreamapi.model.dream.District$QueryBuilder) == true">
+                    <if test="idList != null">
+                        `id` in
+                        <foreach collection="idList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                    <if test="nameList != null">
+                        `name` in
+                        <foreach collection="nameList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyName!=null and fuzzyName.size()>0">
+                    (
+                    <foreach collection="fuzzyName"  separator="or" item="item">
+                        `Name` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyName!=null and rightFuzzyName.size()>0">
+                    (
+                    <foreach collection="rightFuzzyName"  separator="or" item="item">
+                        `Name` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="parentIdList != null">
+                        `parent_id` in
+                        <foreach collection="parentIdList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="parentIdSt !=null">
+                    `parent_id` >= #{parentIdSt} and
+                </if>
+                <if test="parentIdEd!=null">
+                    `parent_id` &lt;= #{parentIdEd} and
+                </if>
+                    <if test="initialList != null">
+                        `initial` in
+                        <foreach collection="initialList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyInitial!=null and fuzzyInitial.size()>0">
+                    (
+                    <foreach collection="fuzzyInitial"  separator="or" item="item">
+                        `Initial` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyInitial!=null and rightFuzzyInitial.size()>0">
+                    (
+                    <foreach collection="rightFuzzyInitial"  separator="or" item="item">
+                        `Initial` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="initialsList != null">
+                        `initials` in
+                        <foreach collection="initialsList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyInitials!=null and fuzzyInitials.size()>0">
+                    (
+                    <foreach collection="fuzzyInitials"  separator="or" item="item">
+                        `Initials` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyInitials!=null and rightFuzzyInitials.size()>0">
+                    (
+                    <foreach collection="rightFuzzyInitials"  separator="or" item="item">
+                        `Initials` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="pinyinList != null">
+                        `pinyin` in
+                        <foreach collection="pinyinList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyPinyin!=null and fuzzyPinyin.size()>0">
+                    (
+                    <foreach collection="fuzzyPinyin"  separator="or" item="item">
+                        `Pinyin` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyPinyin!=null and rightFuzzyPinyin.size()>0">
+                    (
+                    <foreach collection="rightFuzzyPinyin"  separator="or" item="item">
+                        `Pinyin` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="extraList != null">
+                        `extra` in
+                        <foreach collection="extraList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyExtra!=null and fuzzyExtra.size()>0">
+                    (
+                    <foreach collection="fuzzyExtra"  separator="or" item="item">
+                        `Extra` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyExtra!=null and rightFuzzyExtra.size()>0">
+                    (
+                    <foreach collection="rightFuzzyExtra"  separator="or" item="item">
+                        `Extra` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="suffixList != null">
+                        `suffix` in
+                        <foreach collection="suffixList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzySuffix!=null and fuzzySuffix.size()>0">
+                    (
+                    <foreach collection="fuzzySuffix"  separator="or" item="item">
+                        `Suffix` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzySuffix!=null and rightFuzzySuffix.size()>0">
+                    (
+                    <foreach collection="rightFuzzySuffix"  separator="or" item="item">
+                        `Suffix` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="codeList != null">
+                        `code` in
+                        <foreach collection="codeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyCode!=null and fuzzyCode.size()>0">
+                    (
+                    <foreach collection="fuzzyCode"  separator="or" item="item">
+                        `Code` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyCode!=null and rightFuzzyCode.size()>0">
+                    (
+                    <foreach collection="rightFuzzyCode"  separator="or" item="item">
+                        `Code` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="areaCodeList != null">
+                        `area_code` in
+                        <foreach collection="areaCodeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyAreaCode!=null and fuzzyAreaCode.size()>0">
+                    (
+                    <foreach collection="fuzzyAreaCode"  separator="or" item="item">
+                        `Area_code` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyAreaCode!=null and rightFuzzyAreaCode.size()>0">
+                    (
+                    <foreach collection="rightFuzzyAreaCode"  separator="or" item="item">
+                        `Area_code` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="orderList != null">
+                        `order` in
+                        <foreach collection="orderList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="orderSt !=null">
+                    `order` >= #{orderSt} and
+                </if>
+                <if test="orderEd!=null">
+                    `order` &lt;= #{orderEd} and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `id`,
+        `name`,
+        `parent_id`,
+        `initial`,
+        `initials`,
+        `pinyin`,
+        `extra`,
+        `suffix`,
+        `code`,
+        `area_code`,
+        `order`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof com.dreamfield.dreamapi.model.dream.District$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.id==true">
+                        `id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.name==true">
+                        `name`,
+                    </if>
+                    <if test="fetchFields.fetchFields.parentId==true">
+                        `parent_id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.initial==true">
+                        `initial`,
+                    </if>
+                    <if test="fetchFields.fetchFields.initials==true">
+                        `initials`,
+                    </if>
+                    <if test="fetchFields.fetchFields.pinyin==true">
+                        `pinyin`,
+                    </if>
+                    <if test="fetchFields.fetchFields.extra==true">
+                        `extra`,
+                    </if>
+                    <if test="fetchFields.fetchFields.suffix==true">
+                        `suffix`,
+                    </if>
+                    <if test="fetchFields.fetchFields.code==true">
+                        `code`,
+                    </if>
+                    <if test="fetchFields.fetchFields.areaCode==true">
+                        `area_code`,
+                    </if>
+                    <if test="fetchFields.fetchFields.order==true">
+                        `order`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.id==null">
+                        `id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.name==null">
+                        `name`,
+                    </if>
+                    <if test="fetchFields.excludeFields.parentId==null">
+                        `parent_id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.initial==null">
+                        `initial`,
+                    </if>
+                    <if test="fetchFields.excludeFields.initials==null">
+                        `initials`,
+                    </if>
+                    <if test="fetchFields.excludeFields.pinyin==null">
+                        `pinyin`,
+                    </if>
+                    <if test="fetchFields.excludeFields.extra==null">
+                        `extra`,
+                    </if>
+                    <if test="fetchFields.excludeFields.suffix==null">
+                        `suffix`,
+                    </if>
+                    <if test="fetchFields.excludeFields.code==null">
+                        `code`,
+                    </if>
+                    <if test="fetchFields.excludeFields.areaCode==null">
+                        `area_code`,
+                    </if>
+                    <if test="fetchFields.excludeFields.order==null">
+                        `order`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof com.dreamfield.dreamapi.model.dream.District$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>
