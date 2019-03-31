@@ -52,7 +52,6 @@ public class UserController {
 		if ( null != reqBean.getPassword()){
 			if (null != reqBean.getPassword()){
 				user.setUserTel(reqBean.getUserTel());
-				user.setPassword(reqBean.getPassword());
 			}else {
 				returnMsg.setStatus(false);
 				returnMsg.setMsg("密码为空");
@@ -60,11 +59,17 @@ public class UserController {
 			}
 			User user1 = userMapper.queryUserLimit1(user);
 			if (null != user1){
-				returnMsg.setMsg("登录成功");
-				returnMsg.setData(user1.getId());
-				return returnMsg;
+				if ( reqBean.getPassword().equals(user1.getPassword())) {
+					returnMsg.setMsg("登录成功");
+					returnMsg.setData(user1.getId());
+					return returnMsg;
+				}else {
+					returnMsg.setMsg("登录失败,密码错误");
+					returnMsg.setStatus(false);
+					return returnMsg;
+				}
 			}else {
-				returnMsg.setMsg("登录失败,密码错误");
+				returnMsg.setMsg("尊敬的用户,您还未注册,请先注册哦");
 				returnMsg.setStatus(false);
 				return returnMsg;
 			}
