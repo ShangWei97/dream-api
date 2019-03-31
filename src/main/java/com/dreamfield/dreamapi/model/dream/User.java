@@ -161,7 +161,7 @@ public class User implements Serializable {
                 "userName='" + userName + '\'' +
                 "password='" + password + '\'' +
                 "trueName='" + trueName + '\'' +
-                "sex='" + sex + '\'' +
+                "gender='" + sex + '\'' +
                 "age='" + age + '\'' +
                 "createDatetime='" + createDatetime + '\'' +
                 "updateDatetime='" + updateDatetime + '\'' +
@@ -603,12 +603,12 @@ public class User implements Serializable {
         }
 
         public QueryBuilder fetchSex(){
-            setFetchFields("fetchFields","sex");
+            setFetchFields("fetchFields","gender");
             return this;
         }
 
         public QueryBuilder excludeSex(){
-            setFetchFields("excludeFields","sex");
+            setFetchFields("excludeFields","gender");
             return this;
         }
 

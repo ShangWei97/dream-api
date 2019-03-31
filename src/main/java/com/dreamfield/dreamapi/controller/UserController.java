@@ -169,7 +169,7 @@ public class UserController {
 			User user = new User();
 			user.setUserName(reqBean.getUserName());
 			user.setUserTel(reqBean.getUserTel());
-			user.setSex(reqBean.getSex());
+			user.setSex(reqBean.getGender());
 			user.setPassword(reqBean.getPassword());
 			User.UpdateBuilder builder = new User.UpdateBuilder();
 			User.ConditionBuilder conditionBuilder = new User.ConditionBuilder();

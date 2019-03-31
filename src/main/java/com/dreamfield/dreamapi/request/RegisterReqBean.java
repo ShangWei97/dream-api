@@ -13,7 +13,7 @@ public class RegisterReqBean {
 
 	private String userName;
 
-	private String sex;
+	private String gender;
 
 	private String loginCode;
 
