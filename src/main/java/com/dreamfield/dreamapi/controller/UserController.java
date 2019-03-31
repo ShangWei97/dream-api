@@ -5,6 +5,7 @@ import com.dreamfield.dreamapi.enums.ReturnEnum;
 import com.dreamfield.dreamapi.mapper.dream.UserMapper;
 import com.dreamfield.dreamapi.model.dream.User;
 import com.dreamfield.dreamapi.request.GetCodeReqBean;
+import com.dreamfield.dreamapi.request.GetUserInfoReqBean;
 import com.dreamfield.dreamapi.request.LoginReqBean;
 import com.dreamfield.dreamapi.request.RegisterReqBean;
 import com.dreamfield.dreamapi.utils.HttpUtils;
@@ -38,10 +39,12 @@ public class UserController {
 
 	@PostMapping("login")
 	public ReturnMsg login(@RequestBody LoginReqBean reqBean){
+		log.info("login param:",reqBean);
 		ReturnMsg returnMsg = new ReturnMsg();
 		if ( null == reqBean.getUserTel()){
 			returnMsg.setCode(ReturnEnum.NOT_NULL.getCode());
 			returnMsg.setMsg(ReturnEnum.NOT_NULL.getMessage());
+			returnMsg.setStatus(false);
 			return returnMsg;
 		}
 		User user = new User();
@@ -142,15 +145,24 @@ public class UserController {
 				return returnMsg;
 			}
 		}else if (reqBean.getStatus() == 1){
-			ReturnMsg msg = sendMsgCode(reqBean.getTelNum());
-            User user1 = new User();
-            user1.setLoginCode(msg.getData().toString());
-            user1.setUserTel(reqBean.getTelNum());
-            userMapper.insertUser(user1);
-			returnMsg.setData(msg.getData());
-			returnMsg.setMsg(msg.getMsg());
-			returnMsg.setStatus(msg.getStatus());
-			return returnMsg;
+			User user_param = new User();
+			user_param.setUserTel(reqBean.getTelNum());
+			User user_result = userMapper.queryUserLimit1(user);
+			if ( user_result == null) {
+				ReturnMsg msg = sendMsgCode(reqBean.getTelNum());
+				User user1 = new User();
+				user1.setLoginCode(msg.getData().toString());
+				user1.setUserTel(reqBean.getTelNum());
+				userMapper.insertUser(user1);
+				returnMsg.setData(msg.getData());
+				returnMsg.setMsg(msg.getMsg());
+				returnMsg.setStatus(msg.getStatus());
+				return returnMsg;
+			}else {
+				returnMsg.setStatus(false);
+				returnMsg.setMsg("尊敬的用户你已经注册过哦，请勿重复注册");
+				return returnMsg;
+			}
 		}else {
 			returnMsg.setStatus(false);
 			returnMsg.setMsg("系统错误");
@@ -183,4 +195,19 @@ public class UserController {
 			return returnMsg;
 		}
 	}
+
+	@PostMapping("getUserInfo")
+	public ReturnMsg getUserInfo(@RequestBody GetUserInfoReqBean reqBean){
+		ReturnMsg returnMsg = new ReturnMsg();
+		if ( null == reqBean.getUserId()) {
+			returnMsg.setStatus(false);
+			returnMsg.setMsg("必填参数不能为空");
+		}
+		User user_param = new User();
+		user_param.setId(reqBean.getUserId());
+		User user = userMapper.queryUserLimit1(user_param);
+        return null;
+
+	}
+
 }
