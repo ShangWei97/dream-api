@@ -160,6 +160,7 @@ public class UserController {
 
 	@PostMapping("register")
 	public ReturnMsg register(@RequestBody RegisterReqBean reqBean){
+		log.info("register request:",reqBean);
 		ReturnMsg returnMsg = new ReturnMsg();
 		User user_param = new User();
 		user_param.setUserTel(reqBean.getUserTel());
@@ -171,12 +172,8 @@ public class UserController {
 			user.setUserTel(reqBean.getUserTel());
 			user.setSex(reqBean.getGender());
 			user.setPassword(reqBean.getPassword());
-			User.UpdateBuilder builder = new User.UpdateBuilder();
-			User.ConditionBuilder conditionBuilder = new User.ConditionBuilder();
-			conditionBuilder.fuzzyUserTel(user.getUserTel());
-			builder.set(user);
-			builder.where(conditionBuilder);
-			userMapper.update(builder);
+			user.setId(user_reslt.getId());
+			userMapper.updateUser(user);
 			returnMsg.setData("注册成功");
 			return returnMsg;
 		}else {
