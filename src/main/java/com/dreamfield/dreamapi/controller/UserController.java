@@ -211,6 +211,7 @@ public class UserController {
 
 	@PostMapping("updateUser")
 	public ReturnMsg updateUser(@RequestBody UpdateUserReqBean reqBean){
+		log.info("updateUser param",reqBean);
 		ReturnMsg returnMsg = new ReturnMsg();
 		User user = new User();
 		UserInfo userInfo = new UserInfo();
@@ -251,10 +252,14 @@ public class UserController {
 		book.setUserId(reqBean.getUserId());
 		List<Book> bookList = bookMapper.queryBook(book);
 		response.setUserName(user.getUserName());
-		response.setUserImgUrl(userInfo.getImgUrl());
+		if (null != userInfo.getImgUrl()) {
+			response.setUserImgUrl(userInfo.getImgUrl());
+		}
 		response.setTelNumber(user.getUserTel());
 		response.setUserGender(user.getSex());
-		response.setUserSignature(userInfo.getUserSignature());
+		if ( null != userInfo.getUserSignature()) {
+			response.setUserSignature(userInfo.getUserSignature());
+		}
 		response.setSellBookList(bookList);
 		returnMsg.setData(response);
 		return returnMsg;
