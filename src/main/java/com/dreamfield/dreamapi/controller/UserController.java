@@ -252,12 +252,12 @@ public class UserController {
 		book.setUserId(reqBean.getUserId());
 		List<Book> bookList = bookMapper.queryBook(book);
 		response.setUserName(user.getUserName());
-		if (null != userInfo.getImgUrl()) {
+		if (null != userInfo && null != userInfo.getImgUrl()) {
 			response.setUserImgUrl(userInfo.getImgUrl());
 		}
 		response.setTelNumber(user.getUserTel());
 		response.setUserGender(user.getSex());
-		if ( null != userInfo.getUserSignature()) {
+		if ( null != userInfo && null != userInfo.getUserSignature()) {
 			response.setUserSignature(userInfo.getUserSignature());
 		}
 		response.setSellBookList(bookList);
