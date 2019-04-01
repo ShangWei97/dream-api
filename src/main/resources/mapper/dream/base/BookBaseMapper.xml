@@ -1,0 +1,929 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dreamfield.dreamapi.mapper.dream.base.BookBaseMapper">
+
+
+    <insert id="insertBook"  useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `book`
+        (
+        <trim suffixOverrides=",">
+                    <if test="id!=null">
+                        `id`,
+                    </if>
+                    <if test="userId!=null">
+                        `user_id`,
+                    </if>
+                    <if test="bookImgUrl!=null">
+                        `book_img_url`,
+                    </if>
+                    <if test="bookName!=null">
+                        `book_name`,
+                    </if>
+                    <if test="bookAuthor!=null">
+                        `book_author`,
+                    </if>
+                    <if test="bookPrice!=null">
+                        `book_price`,
+                    </if>
+                    <if test="bookPriceNow!=null">
+                        `book_price_now`,
+                    </if>
+                    <if test="bookNewType!=null">
+                        `book_new_type`,
+                    </if>
+                    <if test="bookTime!=null">
+                        `book_time`,
+                    </if>
+                    <if test="bookType!=null">
+                        `book_type`,
+                    </if>
+                    <if test="bookSBNNum!=null">
+                        `book_SBN_num`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="id!=null">
+                    #{id},
+                </if>
+                <if test="userId!=null">
+                    #{userId},
+                </if>
+                <if test="bookImgUrl!=null">
+                    #{bookImgUrl},
+                </if>
+                <if test="bookName!=null">
+                    #{bookName},
+                </if>
+                <if test="bookAuthor!=null">
+                    #{bookAuthor},
+                </if>
+                <if test="bookPrice!=null">
+                    #{bookPrice},
+                </if>
+                <if test="bookPriceNow!=null">
+                    #{bookPriceNow},
+                </if>
+                <if test="bookNewType!=null">
+                    #{bookNewType},
+                </if>
+                <if test="bookTime!=null">
+                    #{bookTime},
+                </if>
+                <if test="bookType!=null">
+                    #{bookType},
+                </if>
+                <if test="bookSBNNum!=null">
+                    #{bookSBNNum},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updateBook">
+        UPDATE `book`
+        SET
+        <trim suffixOverrides=",">
+            <if test="userId != null">
+                `user_id` = #{userId},
+            </if>
+            <if test="bookImgUrl != null and bookImgUrl!=''">
+                `book_img_url` = #{bookImgUrl},
+            </if>
+            <if test="bookName != null and bookName!=''">
+                `book_name` = #{bookName},
+            </if>
+            <if test="bookAuthor != null and bookAuthor!=''">
+                `book_author` = #{bookAuthor},
+            </if>
+            <if test="bookPrice != null">
+                `book_price` = #{bookPrice},
+            </if>
+            <if test="bookPriceNow != null">
+                `book_price_now` = #{bookPriceNow},
+            </if>
+            <if test="bookNewType != null and bookNewType!=''">
+                `book_new_type` = #{bookNewType},
+            </if>
+            <if test="bookTime != null">
+                `book_time` = #{bookTime},
+            </if>
+            <if test="bookType != null and bookType!=''">
+                `book_type` = #{bookType},
+            </if>
+            <if test="bookSBNNum != null and bookSBNNum!=''">
+                `book_SBN_num` = #{bookSBNNum},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+                `id` = #{id} and
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `book`
+        SET
+        <trim suffixOverrides=",">
+        <if test="set.userId != null">
+            `user_id` = #{set.userId},
+        </if>
+        <if test="set.bookImgUrl != null and set.bookImgUrl!=''">
+            `book_img_url` = #{set.bookImgUrl},
+        </if>
+        <if test="set.bookName != null and set.bookName!=''">
+            `book_name` = #{set.bookName},
+        </if>
+        <if test="set.bookAuthor != null and set.bookAuthor!=''">
+            `book_author` = #{set.bookAuthor},
+        </if>
+        <if test="set.bookPrice != null">
+            `book_price` = #{set.bookPrice},
+        </if>
+        <if test="set.bookPriceNow != null">
+            `book_price_now` = #{set.bookPriceNow},
+        </if>
+        <if test="set.bookNewType != null and set.bookNewType!=''">
+            `book_new_type` = #{set.bookNewType},
+        </if>
+        <if test="set.bookTime != null">
+            `book_time` = #{set.bookTime},
+        </if>
+        <if test="set.bookType != null and set.bookType!=''">
+            `book_type` = #{set.bookType},
+        </if>
+        <if test="set.bookSBNNum != null and set.bookSBNNum!=''">
+            `book_SBN_num` = #{set.bookSBNNum},
+        </if>
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.idList != null">
+                    `id` in
+                    <foreach collection="where.idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.idSt !=null">
+                `id` >= #{where.idSt} and
+            </if>
+            <if test="where.idEd!=null">
+                `id` &lt;= #{where.idEd} and
+            </if>
+                <if test="where.userIdList != null">
+                    `user_id` in
+                    <foreach collection="where.userIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.userIdSt !=null">
+                `user_id` >= #{where.userIdSt} and
+            </if>
+            <if test="where.userIdEd!=null">
+                `user_id` &lt;= #{where.userIdEd} and
+            </if>
+                <if test="where.bookImgUrlList != null">
+                    `book_img_url` in
+                    <foreach collection="where.bookImgUrlList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyBookImgUrl!=null and where.fuzzyBookImgUrl.size()>0">
+                (
+                <foreach collection="where.fuzzyBookImgUrl"  separator="or" item="item">
+                    `Book_img_url` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyBookImgUrl!=null and where.rightFuzzyBookImgUrl.size()>0">
+                (
+                <foreach collection="where.rightFuzzyBookImgUrl"  separator="or" item="item">
+                    `Book_img_url` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.bookNameList != null">
+                    `book_name` in
+                    <foreach collection="where.bookNameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyBookName!=null and where.fuzzyBookName.size()>0">
+                (
+                <foreach collection="where.fuzzyBookName"  separator="or" item="item">
+                    `Book_name` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyBookName!=null and where.rightFuzzyBookName.size()>0">
+                (
+                <foreach collection="where.rightFuzzyBookName"  separator="or" item="item">
+                    `Book_name` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.bookAuthorList != null">
+                    `book_author` in
+                    <foreach collection="where.bookAuthorList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyBookAuthor!=null and where.fuzzyBookAuthor.size()>0">
+                (
+                <foreach collection="where.fuzzyBookAuthor"  separator="or" item="item">
+                    `Book_author` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyBookAuthor!=null and where.rightFuzzyBookAuthor.size()>0">
+                (
+                <foreach collection="where.rightFuzzyBookAuthor"  separator="or" item="item">
+                    `Book_author` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.bookPriceList != null">
+                    `book_price` in
+                    <foreach collection="where.bookPriceList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.bookPriceSt !=null">
+                `book_price` >= #{where.bookPriceSt} and
+            </if>
+            <if test="where.bookPriceEd!=null">
+                `book_price` &lt;= #{where.bookPriceEd} and
+            </if>
+                <if test="where.bookPriceNowList != null">
+                    `book_price_now` in
+                    <foreach collection="where.bookPriceNowList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.bookPriceNowSt !=null">
+                `book_price_now` >= #{where.bookPriceNowSt} and
+            </if>
+            <if test="where.bookPriceNowEd!=null">
+                `book_price_now` &lt;= #{where.bookPriceNowEd} and
+            </if>
+                <if test="where.bookNewTypeList != null">
+                    `book_new_type` in
+                    <foreach collection="where.bookNewTypeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyBookNewType!=null and where.fuzzyBookNewType.size()>0">
+                (
+                <foreach collection="where.fuzzyBookNewType"  separator="or" item="item">
+                    `Book_new_type` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyBookNewType!=null and where.rightFuzzyBookNewType.size()>0">
+                (
+                <foreach collection="where.rightFuzzyBookNewType"  separator="or" item="item">
+                    `Book_new_type` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.bookTimeList != null">
+                    `book_time` in
+                    <foreach collection="where.bookTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.bookTimeSt !=null">
+                `book_time` >= #{where.bookTimeSt} and
+            </if>
+            <if test="where.bookTimeEd!=null">
+                `book_time` &lt;= #{where.bookTimeEd} and
+            </if>
+                <if test="where.bookTypeList != null">
+                    `book_type` in
+                    <foreach collection="where.bookTypeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyBookType!=null and where.fuzzyBookType.size()>0">
+                (
+                <foreach collection="where.fuzzyBookType"  separator="or" item="item">
+                    `Book_type` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyBookType!=null and where.rightFuzzyBookType.size()>0">
+                (
+                <foreach collection="where.rightFuzzyBookType"  separator="or" item="item">
+                    `Book_type` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.bookSBNNumList != null">
+                    `book_SBN_num` in
+                    <foreach collection="where.bookSBNNumList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyBookSBNNum!=null and where.fuzzyBookSBNNum.size()>0">
+                (
+                <foreach collection="where.fuzzyBookSBNNum"  separator="or" item="item">
+                    `Book_SBN_num` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyBookSBNNum!=null and where.rightFuzzyBookSBNNum.size()>0">
+                (
+                <foreach collection="where.rightFuzzyBookSBNNum"  separator="or" item="item">
+                    `Book_SBN_num` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="com.dreamfield.dreamapi.model.dream.Book" id="BookMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="bookImgUrl" column="book_img_url"/>
+        <result property="bookName" column="book_name"/>
+        <result property="bookAuthor" column="book_author"/>
+        <result property="bookPrice" column="book_price"/>
+        <result property="bookPriceNow" column="book_price_now"/>
+        <result property="bookNewType" column="book_new_type"/>
+        <result property="bookTime" column="book_time"/>
+        <result property="bookType" column="book_type"/>
+        <result property="bookSBNNum" column="book_SBN_num"/>
+    </resultMap>
+
+
+    <select id="queryBook" resultMap="BookMap">
+        select
+        <include refid="baseResult"></include>
+        from  `book`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="userId != null">
+                `user_id` = #{userId} and
+            </if>
+            <if test="bookImgUrl != null and bookImgUrl!=''">
+                `book_img_url` = #{bookImgUrl} and
+            </if>
+            <if test="bookName != null and bookName!=''">
+                `book_name` = #{bookName} and
+            </if>
+            <if test="bookAuthor != null and bookAuthor!=''">
+                `book_author` = #{bookAuthor} and
+            </if>
+            <if test="bookPrice != null">
+                `book_price` = #{bookPrice} and
+            </if>
+            <if test="bookPriceNow != null">
+                `book_price_now` = #{bookPriceNow} and
+            </if>
+            <if test="bookNewType != null and bookNewType!=''">
+                `book_new_type` = #{bookNewType} and
+            </if>
+            <if test="bookTime != null">
+                `book_time` = #{bookTime} and
+            </if>
+            <if test="bookType != null and bookType!=''">
+                `book_type` = #{bookType} and
+            </if>
+            <if test="bookSBNNum != null and bookSBNNum!=''">
+                `book_SBN_num` = #{bookSBNNum} and
+            </if>
+            <if test = "(_parameter instanceof com.dreamfield.dreamapi.model.dream.Book$QueryBuilder) == true">
+                <if test="idList != null">
+                    `id` in
+                    <foreach collection="idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                <if test="userIdList != null">
+                    `user_id` in
+                    <foreach collection="userIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="userIdSt !=null">
+                    `user_id` >= #{userIdSt} and
+                </if>
+                <if test="userIdEd!=null">
+                    `user_id` &lt;= #{userIdEd} and
+                </if>
+                <if test="bookImgUrlList != null">
+                    `book_img_url` in
+                    <foreach collection="bookImgUrlList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyBookImgUrl!=null and fuzzyBookImgUrl.size()>0">
+                    (
+                    <foreach collection="fuzzyBookImgUrl"  separator="or" item="item">
+                        `Book_img_url` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyBookImgUrl!=null and rightFuzzyBookImgUrl.size()>0">
+                    (
+                    <foreach collection="rightFuzzyBookImgUrl"  separator="or" item="item">
+                        `Book_img_url` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="bookNameList != null">
+                    `book_name` in
+                    <foreach collection="bookNameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyBookName!=null and fuzzyBookName.size()>0">
+                    (
+                    <foreach collection="fuzzyBookName"  separator="or" item="item">
+                        `Book_name` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyBookName!=null and rightFuzzyBookName.size()>0">
+                    (
+                    <foreach collection="rightFuzzyBookName"  separator="or" item="item">
+                        `Book_name` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="bookAuthorList != null">
+                    `book_author` in
+                    <foreach collection="bookAuthorList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyBookAuthor!=null and fuzzyBookAuthor.size()>0">
+                    (
+                    <foreach collection="fuzzyBookAuthor"  separator="or" item="item">
+                        `Book_author` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyBookAuthor!=null and rightFuzzyBookAuthor.size()>0">
+                    (
+                    <foreach collection="rightFuzzyBookAuthor"  separator="or" item="item">
+                        `Book_author` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="bookPriceList != null">
+                    `book_price` in
+                    <foreach collection="bookPriceList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="bookPriceSt !=null">
+                    `book_price` >= #{bookPriceSt} and
+                </if>
+                <if test="bookPriceEd!=null">
+                    `book_price` &lt;= #{bookPriceEd} and
+                </if>
+                <if test="bookPriceNowList != null">
+                    `book_price_now` in
+                    <foreach collection="bookPriceNowList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="bookPriceNowSt !=null">
+                    `book_price_now` >= #{bookPriceNowSt} and
+                </if>
+                <if test="bookPriceNowEd!=null">
+                    `book_price_now` &lt;= #{bookPriceNowEd} and
+                </if>
+                <if test="bookNewTypeList != null">
+                    `book_new_type` in
+                    <foreach collection="bookNewTypeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyBookNewType!=null and fuzzyBookNewType.size()>0">
+                    (
+                    <foreach collection="fuzzyBookNewType"  separator="or" item="item">
+                        `Book_new_type` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyBookNewType!=null and rightFuzzyBookNewType.size()>0">
+                    (
+                    <foreach collection="rightFuzzyBookNewType"  separator="or" item="item">
+                        `Book_new_type` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="bookTimeList != null">
+                    `book_time` in
+                    <foreach collection="bookTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="bookTimeSt !=null">
+                    `book_time` >= #{bookTimeSt} and
+                </if>
+                <if test="bookTimeEd!=null">
+                    `book_time` &lt;= #{bookTimeEd} and
+                </if>
+                <if test="bookTypeList != null">
+                    `book_type` in
+                    <foreach collection="bookTypeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyBookType!=null and fuzzyBookType.size()>0">
+                    (
+                    <foreach collection="fuzzyBookType"  separator="or" item="item">
+                        `Book_type` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyBookType!=null and rightFuzzyBookType.size()>0">
+                    (
+                    <foreach collection="rightFuzzyBookType"  separator="or" item="item">
+                        `Book_type` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="bookSBNNumList != null">
+                    `book_SBN_num` in
+                    <foreach collection="bookSBNNumList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyBookSBNNum!=null and fuzzyBookSBNNum.size()>0">
+                    (
+                    <foreach collection="fuzzyBookSBNNum"  separator="or" item="item">
+                        `Book_SBN_num` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyBookSBNNum!=null and rightFuzzyBookSBNNum.size()>0">
+                    (
+                    <foreach collection="rightFuzzyBookSBNNum"  separator="or" item="item">
+                        `Book_SBN_num` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryBookLimit1" resultMap="BookMap">
+        select
+        <include refid="baseResult"></include>
+        from  `book`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="userId != null">
+                `user_id` = #{userId} and
+            </if>
+            <if test="bookImgUrl != null and bookImgUrl!=''">
+                `book_img_url` = #{bookImgUrl} and
+            </if>
+            <if test="bookName != null and bookName!=''">
+                `book_name` = #{bookName} and
+            </if>
+            <if test="bookAuthor != null and bookAuthor!=''">
+                `book_author` = #{bookAuthor} and
+            </if>
+            <if test="bookPrice != null">
+                `book_price` = #{bookPrice} and
+            </if>
+            <if test="bookPriceNow != null">
+                `book_price_now` = #{bookPriceNow} and
+            </if>
+            <if test="bookNewType != null and bookNewType!=''">
+                `book_new_type` = #{bookNewType} and
+            </if>
+            <if test="bookTime != null">
+                `book_time` = #{bookTime} and
+            </if>
+            <if test="bookType != null and bookType!=''">
+                `book_type` = #{bookType} and
+            </if>
+            <if test="bookSBNNum != null and bookSBNNum!=''">
+                `book_SBN_num` = #{bookSBNNum} and
+            </if>
+            <if test = "(_parameter instanceof com.dreamfield.dreamapi.model.dream.Book$QueryBuilder) == true">
+                    <if test="idList != null">
+                        `id` in
+                        <foreach collection="idList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                    <if test="userIdList != null">
+                        `user_id` in
+                        <foreach collection="userIdList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="userIdSt !=null">
+                    `user_id` >= #{userIdSt} and
+                </if>
+                <if test="userIdEd!=null">
+                    `user_id` &lt;= #{userIdEd} and
+                </if>
+                    <if test="bookImgUrlList != null">
+                        `book_img_url` in
+                        <foreach collection="bookImgUrlList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyBookImgUrl!=null and fuzzyBookImgUrl.size()>0">
+                    (
+                    <foreach collection="fuzzyBookImgUrl"  separator="or" item="item">
+                        `Book_img_url` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyBookImgUrl!=null and rightFuzzyBookImgUrl.size()>0">
+                    (
+                    <foreach collection="rightFuzzyBookImgUrl"  separator="or" item="item">
+                        `Book_img_url` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="bookNameList != null">
+                        `book_name` in
+                        <foreach collection="bookNameList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyBookName!=null and fuzzyBookName.size()>0">
+                    (
+                    <foreach collection="fuzzyBookName"  separator="or" item="item">
+                        `Book_name` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyBookName!=null and rightFuzzyBookName.size()>0">
+                    (
+                    <foreach collection="rightFuzzyBookName"  separator="or" item="item">
+                        `Book_name` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="bookAuthorList != null">
+                        `book_author` in
+                        <foreach collection="bookAuthorList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyBookAuthor!=null and fuzzyBookAuthor.size()>0">
+                    (
+                    <foreach collection="fuzzyBookAuthor"  separator="or" item="item">
+                        `Book_author` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyBookAuthor!=null and rightFuzzyBookAuthor.size()>0">
+                    (
+                    <foreach collection="rightFuzzyBookAuthor"  separator="or" item="item">
+                        `Book_author` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="bookPriceList != null">
+                        `book_price` in
+                        <foreach collection="bookPriceList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="bookPriceSt !=null">
+                    `book_price` >= #{bookPriceSt} and
+                </if>
+                <if test="bookPriceEd!=null">
+                    `book_price` &lt;= #{bookPriceEd} and
+                </if>
+                    <if test="bookPriceNowList != null">
+                        `book_price_now` in
+                        <foreach collection="bookPriceNowList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="bookPriceNowSt !=null">
+                    `book_price_now` >= #{bookPriceNowSt} and
+                </if>
+                <if test="bookPriceNowEd!=null">
+                    `book_price_now` &lt;= #{bookPriceNowEd} and
+                </if>
+                    <if test="bookNewTypeList != null">
+                        `book_new_type` in
+                        <foreach collection="bookNewTypeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyBookNewType!=null and fuzzyBookNewType.size()>0">
+                    (
+                    <foreach collection="fuzzyBookNewType"  separator="or" item="item">
+                        `Book_new_type` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyBookNewType!=null and rightFuzzyBookNewType.size()>0">
+                    (
+                    <foreach collection="rightFuzzyBookNewType"  separator="or" item="item">
+                        `Book_new_type` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="bookTimeList != null">
+                        `book_time` in
+                        <foreach collection="bookTimeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="bookTimeSt !=null">
+                    `book_time` >= #{bookTimeSt} and
+                </if>
+                <if test="bookTimeEd!=null">
+                    `book_time` &lt;= #{bookTimeEd} and
+                </if>
+                    <if test="bookTypeList != null">
+                        `book_type` in
+                        <foreach collection="bookTypeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyBookType!=null and fuzzyBookType.size()>0">
+                    (
+                    <foreach collection="fuzzyBookType"  separator="or" item="item">
+                        `Book_type` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyBookType!=null and rightFuzzyBookType.size()>0">
+                    (
+                    <foreach collection="rightFuzzyBookType"  separator="or" item="item">
+                        `Book_type` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="bookSBNNumList != null">
+                        `book_SBN_num` in
+                        <foreach collection="bookSBNNumList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyBookSBNNum!=null and fuzzyBookSBNNum.size()>0">
+                    (
+                    <foreach collection="fuzzyBookSBNNum"  separator="or" item="item">
+                        `Book_SBN_num` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyBookSBNNum!=null and rightFuzzyBookSBNNum.size()>0">
+                    (
+                    <foreach collection="rightFuzzyBookSBNNum"  separator="or" item="item">
+                        `Book_SBN_num` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `id`,
+        `user_id`,
+        `book_img_url`,
+        `book_name`,
+        `book_author`,
+        `book_price`,
+        `book_price_now`,
+        `book_new_type`,
+        `book_time`,
+        `book_type`,
+        `book_SBN_num`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof com.dreamfield.dreamapi.model.dream.Book$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.id==true">
+                        `id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.userId==true">
+                        `user_id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.bookImgUrl==true">
+                        `book_img_url`,
+                    </if>
+                    <if test="fetchFields.fetchFields.bookName==true">
+                        `book_name`,
+                    </if>
+                    <if test="fetchFields.fetchFields.bookAuthor==true">
+                        `book_author`,
+                    </if>
+                    <if test="fetchFields.fetchFields.bookPrice==true">
+                        `book_price`,
+                    </if>
+                    <if test="fetchFields.fetchFields.bookPriceNow==true">
+                        `book_price_now`,
+                    </if>
+                    <if test="fetchFields.fetchFields.bookNewType==true">
+                        `book_new_type`,
+                    </if>
+                    <if test="fetchFields.fetchFields.bookTime==true">
+                        `book_time`,
+                    </if>
+                    <if test="fetchFields.fetchFields.bookType==true">
+                        `book_type`,
+                    </if>
+                    <if test="fetchFields.fetchFields.bookSBNNum==true">
+                        `book_SBN_num`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.id==null">
+                        `id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.userId==null">
+                        `user_id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.bookImgUrl==null">
+                        `book_img_url`,
+                    </if>
+                    <if test="fetchFields.excludeFields.bookName==null">
+                        `book_name`,
+                    </if>
+                    <if test="fetchFields.excludeFields.bookAuthor==null">
+                        `book_author`,
+                    </if>
+                    <if test="fetchFields.excludeFields.bookPrice==null">
+                        `book_price`,
+                    </if>
+                    <if test="fetchFields.excludeFields.bookPriceNow==null">
+                        `book_price_now`,
+                    </if>
+                    <if test="fetchFields.excludeFields.bookNewType==null">
+                        `book_new_type`,
+                    </if>
+                    <if test="fetchFields.excludeFields.bookTime==null">
+                        `book_time`,
+                    </if>
+                    <if test="fetchFields.excludeFields.bookType==null">
+                        `book_type`,
+                    </if>
+                    <if test="fetchFields.excludeFields.bookSBNNum==null">
+                        `book_SBN_num`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof com.dreamfield.dreamapi.model.dream.Book$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

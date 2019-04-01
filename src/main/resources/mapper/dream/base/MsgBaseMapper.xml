@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dreamfield.dreamapi.mapper.dream.base.MsgBaseMapper">
+
+
+    <insert id="insertMsg" >
+        INSERT INTO `msg`
+        (
+        <trim suffixOverrides=",">
+                    <if test="id!=null">
+                        `id`,
+                    </if>
+                    <if test="msgUserId!=null">
+                        `msg_user_id`,
+                    </if>
+                    <if test="msgUserName!=null">
+                        `msg_user_name`,
+                    </if>
+                    <if test="msgUserGender!=null">
+                        `msg_user_gender`,
+                    </if>
+                    <if test="msgContent!=null">
+                        `msg_content`,
+                    </if>
+                    <if test="msgTime!=null">
+                        `msg_time`,
+                    </if>
+                    <if test="bookId!=null">
+                        `book_id`,
+                    </if>
+                    <if test="parentId!=null">
+                        `parent_id`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="id!=null">
+                    #{id},
+                </if>
+                <if test="msgUserId!=null">
+                    #{msgUserId},
+                </if>
+                <if test="msgUserName!=null">
+                    #{msgUserName},
+                </if>
+                <if test="msgUserGender!=null">
+                    #{msgUserGender},
+                </if>
+                <if test="msgContent!=null">
+                    #{msgContent},
+                </if>
+                <if test="msgTime!=null">
+                    #{msgTime},
+                </if>
+                <if test="bookId!=null">
+                    #{bookId},
+                </if>
+                <if test="parentId!=null">
+                    #{parentId},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updateMsg">
+        UPDATE `msg`
+        SET
+        <trim suffixOverrides=",">
+            <if test="msgUserId != null">
+                `msg_user_id` = #{msgUserId},
+            </if>
+            <if test="msgUserName != null and msgUserName!=''">
+                `msg_user_name` = #{msgUserName},
+            </if>
+            <if test="msgUserGender != null and msgUserGender!=''">
+                `msg_user_gender` = #{msgUserGender},
+            </if>
+            <if test="msgContent != null and msgContent!=''">
+                `msg_content` = #{msgContent},
+            </if>
+            <if test="msgTime != null">
+                `msg_time` = #{msgTime},
+            </if>
+            <if test="bookId != null">
+                `book_id` = #{bookId},
+            </if>
+            <if test="parentId != null">
+                `parent_id` = #{parentId},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+                `id` = #{id} and
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `msg`
+        SET
+        <trim suffixOverrides=",">
+        <if test="set.msgUserId != null">
+            `msg_user_id` = #{set.msgUserId},
+        </if>
+        <if test="set.msgUserName != null and set.msgUserName!=''">
+            `msg_user_name` = #{set.msgUserName},
+        </if>
+        <if test="set.msgUserGender != null and set.msgUserGender!=''">
+            `msg_user_gender` = #{set.msgUserGender},
+        </if>
+        <if test="set.msgContent != null and set.msgContent!=''">
+            `msg_content` = #{set.msgContent},
+        </if>
+        <if test="set.msgTime != null">
+            `msg_time` = #{set.msgTime},
+        </if>
+        <if test="set.bookId != null">
+            `book_id` = #{set.bookId},
+        </if>
+        <if test="set.parentId != null">
+            `parent_id` = #{set.parentId},
+        </if>
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.idList != null">
+                    `id` in
+                    <foreach collection="where.idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.idSt !=null">
+                `id` >= #{where.idSt} and
+            </if>
+            <if test="where.idEd!=null">
+                `id` &lt;= #{where.idEd} and
+            </if>
+                <if test="where.msgUserIdList != null">
+                    `msg_user_id` in
+                    <foreach collection="where.msgUserIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.msgUserIdSt !=null">
+                `msg_user_id` >= #{where.msgUserIdSt} and
+            </if>
+            <if test="where.msgUserIdEd!=null">
+                `msg_user_id` &lt;= #{where.msgUserIdEd} and
+            </if>
+                <if test="where.msgUserNameList != null">
+                    `msg_user_name` in
+                    <foreach collection="where.msgUserNameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyMsgUserName!=null and where.fuzzyMsgUserName.size()>0">
+                (
+                <foreach collection="where.fuzzyMsgUserName"  separator="or" item="item">
+                    `Msg_user_name` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyMsgUserName!=null and where.rightFuzzyMsgUserName.size()>0">
+                (
+                <foreach collection="where.rightFuzzyMsgUserName"  separator="or" item="item">
+                    `Msg_user_name` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.msgUserGenderList != null">
+                    `msg_user_gender` in
+                    <foreach collection="where.msgUserGenderList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyMsgUserGender!=null and where.fuzzyMsgUserGender.size()>0">
+                (
+                <foreach collection="where.fuzzyMsgUserGender"  separator="or" item="item">
+                    `Msg_user_gender` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyMsgUserGender!=null and where.rightFuzzyMsgUserGender.size()>0">
+                (
+                <foreach collection="where.rightFuzzyMsgUserGender"  separator="or" item="item">
+                    `Msg_user_gender` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.msgContentList != null">
+                    `msg_content` in
+                    <foreach collection="where.msgContentList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyMsgContent!=null and where.fuzzyMsgContent.size()>0">
+                (
+                <foreach collection="where.fuzzyMsgContent"  separator="or" item="item">
+                    `Msg_content` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyMsgContent!=null and where.rightFuzzyMsgContent.size()>0">
+                (
+                <foreach collection="where.rightFuzzyMsgContent"  separator="or" item="item">
+                    `Msg_content` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.msgTimeList != null">
+                    `msg_time` in
+                    <foreach collection="where.msgTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.msgTimeSt !=null">
+                `msg_time` >= #{where.msgTimeSt} and
+            </if>
+            <if test="where.msgTimeEd!=null">
+                `msg_time` &lt;= #{where.msgTimeEd} and
+            </if>
+                <if test="where.bookIdList != null">
+                    `book_id` in
+                    <foreach collection="where.bookIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.bookIdSt !=null">
+                `book_id` >= #{where.bookIdSt} and
+            </if>
+            <if test="where.bookIdEd!=null">
+                `book_id` &lt;= #{where.bookIdEd} and
+            </if>
+                <if test="where.parentIdList != null">
+                    `parent_id` in
+                    <foreach collection="where.parentIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.parentIdSt !=null">
+                `parent_id` >= #{where.parentIdSt} and
+            </if>
+            <if test="where.parentIdEd!=null">
+                `parent_id` &lt;= #{where.parentIdEd} and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="com.dreamfield.dreamapi.model.dream.Msg" id="MsgMap">
+        <result property="id" column="id"/>
+        <result property="msgUserId" column="msg_user_id"/>
+        <result property="msgUserName" column="msg_user_name"/>
+        <result property="msgUserGender" column="msg_user_gender"/>
+        <result property="msgContent" column="msg_content"/>
+        <result property="msgTime" column="msg_time"/>
+        <result property="bookId" column="book_id"/>
+        <result property="parentId" column="parent_id"/>
+    </resultMap>
+
+
+    <select id="queryMsg" resultMap="MsgMap">
+        select
+        <include refid="baseResult"></include>
+        from  `msg`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="msgUserId != null">
+                `msg_user_id` = #{msgUserId} and
+            </if>
+            <if test="msgUserName != null and msgUserName!=''">
+                `msg_user_name` = #{msgUserName} and
+            </if>
+            <if test="msgUserGender != null and msgUserGender!=''">
+                `msg_user_gender` = #{msgUserGender} and
+            </if>
+            <if test="msgContent != null and msgContent!=''">
+                `msg_content` = #{msgContent} and
+            </if>
+            <if test="msgTime != null">
+                `msg_time` = #{msgTime} and
+            </if>
+            <if test="bookId != null">
+                `book_id` = #{bookId} and
+            </if>
+            <if test="parentId != null">
+                `parent_id` = #{parentId} and
+            </if>
+            <if test = "(_parameter instanceof com.dreamfield.dreamapi.model.dream.Msg$QueryBuilder) == true">
+                <if test="idList != null">
+                    `id` in
+                    <foreach collection="idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                <if test="msgUserIdList != null">
+                    `msg_user_id` in
+                    <foreach collection="msgUserIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="msgUserIdSt !=null">
+                    `msg_user_id` >= #{msgUserIdSt} and
+                </if>
+                <if test="msgUserIdEd!=null">
+                    `msg_user_id` &lt;= #{msgUserIdEd} and
+                </if>
+                <if test="msgUserNameList != null">
+                    `msg_user_name` in
+                    <foreach collection="msgUserNameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyMsgUserName!=null and fuzzyMsgUserName.size()>0">
+                    (
+                    <foreach collection="fuzzyMsgUserName"  separator="or" item="item">
+                        `Msg_user_name` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyMsgUserName!=null and rightFuzzyMsgUserName.size()>0">
+                    (
+                    <foreach collection="rightFuzzyMsgUserName"  separator="or" item="item">
+                        `Msg_user_name` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="msgUserGenderList != null">
+                    `msg_user_gender` in
+                    <foreach collection="msgUserGenderList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyMsgUserGender!=null and fuzzyMsgUserGender.size()>0">
+                    (
+                    <foreach collection="fuzzyMsgUserGender"  separator="or" item="item">
+                        `Msg_user_gender` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyMsgUserGender!=null and rightFuzzyMsgUserGender.size()>0">
+                    (
+                    <foreach collection="rightFuzzyMsgUserGender"  separator="or" item="item">
+                        `Msg_user_gender` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="msgContentList != null">
+                    `msg_content` in
+                    <foreach collection="msgContentList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyMsgContent!=null and fuzzyMsgContent.size()>0">
+                    (
+                    <foreach collection="fuzzyMsgContent"  separator="or" item="item">
+                        `Msg_content` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyMsgContent!=null and rightFuzzyMsgContent.size()>0">
+                    (
+                    <foreach collection="rightFuzzyMsgContent"  separator="or" item="item">
+                        `Msg_content` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="msgTimeList != null">
+                    `msg_time` in
+                    <foreach collection="msgTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="msgTimeSt !=null">
+                    `msg_time` >= #{msgTimeSt} and
+                </if>
+                <if test="msgTimeEd!=null">
+                    `msg_time` &lt;= #{msgTimeEd} and
+                </if>
+                <if test="bookIdList != null">
+                    `book_id` in
+                    <foreach collection="bookIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="bookIdSt !=null">
+                    `book_id` >= #{bookIdSt} and
+                </if>
+                <if test="bookIdEd!=null">
+                    `book_id` &lt;= #{bookIdEd} and
+                </if>
+                <if test="parentIdList != null">
+                    `parent_id` in
+                    <foreach collection="parentIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="parentIdSt !=null">
+                    `parent_id` >= #{parentIdSt} and
+                </if>
+                <if test="parentIdEd!=null">
+                    `parent_id` &lt;= #{parentIdEd} and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryMsgLimit1" resultMap="MsgMap">
+        select
+        <include refid="baseResult"></include>
+        from  `msg`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="msgUserId != null">
+                `msg_user_id` = #{msgUserId} and
+            </if>
+            <if test="msgUserName != null and msgUserName!=''">
+                `msg_user_name` = #{msgUserName} and
+            </if>
+            <if test="msgUserGender != null and msgUserGender!=''">
+                `msg_user_gender` = #{msgUserGender} and
+            </if>
+            <if test="msgContent != null and msgContent!=''">
+                `msg_content` = #{msgContent} and
+            </if>
+            <if test="msgTime != null">
+                `msg_time` = #{msgTime} and
+            </if>
+            <if test="bookId != null">
+                `book_id` = #{bookId} and
+            </if>
+            <if test="parentId != null">
+                `parent_id` = #{parentId} and
+            </if>
+            <if test = "(_parameter instanceof com.dreamfield.dreamapi.model.dream.Msg$QueryBuilder) == true">
+                    <if test="idList != null">
+                        `id` in
+                        <foreach collection="idList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                    <if test="msgUserIdList != null">
+                        `msg_user_id` in
+                        <foreach collection="msgUserIdList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="msgUserIdSt !=null">
+                    `msg_user_id` >= #{msgUserIdSt} and
+                </if>
+                <if test="msgUserIdEd!=null">
+                    `msg_user_id` &lt;= #{msgUserIdEd} and
+                </if>
+                    <if test="msgUserNameList != null">
+                        `msg_user_name` in
+                        <foreach collection="msgUserNameList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyMsgUserName!=null and fuzzyMsgUserName.size()>0">
+                    (
+                    <foreach collection="fuzzyMsgUserName"  separator="or" item="item">
+                        `Msg_user_name` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyMsgUserName!=null and rightFuzzyMsgUserName.size()>0">
+                    (
+                    <foreach collection="rightFuzzyMsgUserName"  separator="or" item="item">
+                        `Msg_user_name` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="msgUserGenderList != null">
+                        `msg_user_gender` in
+                        <foreach collection="msgUserGenderList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyMsgUserGender!=null and fuzzyMsgUserGender.size()>0">
+                    (
+                    <foreach collection="fuzzyMsgUserGender"  separator="or" item="item">
+                        `Msg_user_gender` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyMsgUserGender!=null and rightFuzzyMsgUserGender.size()>0">
+                    (
+                    <foreach collection="rightFuzzyMsgUserGender"  separator="or" item="item">
+                        `Msg_user_gender` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="msgContentList != null">
+                        `msg_content` in
+                        <foreach collection="msgContentList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyMsgContent!=null and fuzzyMsgContent.size()>0">
+                    (
+                    <foreach collection="fuzzyMsgContent"  separator="or" item="item">
+                        `Msg_content` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyMsgContent!=null and rightFuzzyMsgContent.size()>0">
+                    (
+                    <foreach collection="rightFuzzyMsgContent"  separator="or" item="item">
+                        `Msg_content` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="msgTimeList != null">
+                        `msg_time` in
+                        <foreach collection="msgTimeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="msgTimeSt !=null">
+                    `msg_time` >= #{msgTimeSt} and
+                </if>
+                <if test="msgTimeEd!=null">
+                    `msg_time` &lt;= #{msgTimeEd} and
+                </if>
+                    <if test="bookIdList != null">
+                        `book_id` in
+                        <foreach collection="bookIdList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="bookIdSt !=null">
+                    `book_id` >= #{bookIdSt} and
+                </if>
+                <if test="bookIdEd!=null">
+                    `book_id` &lt;= #{bookIdEd} and
+                </if>
+                    <if test="parentIdList != null">
+                        `parent_id` in
+                        <foreach collection="parentIdList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="parentIdSt !=null">
+                    `parent_id` >= #{parentIdSt} and
+                </if>
+                <if test="parentIdEd!=null">
+                    `parent_id` &lt;= #{parentIdEd} and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `id`,
+        `msg_user_id`,
+        `msg_user_name`,
+        `msg_user_gender`,
+        `msg_content`,
+        `msg_time`,
+        `book_id`,
+        `parent_id`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof com.dreamfield.dreamapi.model.dream.Msg$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.id==true">
+                        `id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.msgUserId==true">
+                        `msg_user_id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.msgUserName==true">
+                        `msg_user_name`,
+                    </if>
+                    <if test="fetchFields.fetchFields.msgUserGender==true">
+                        `msg_user_gender`,
+                    </if>
+                    <if test="fetchFields.fetchFields.msgContent==true">
+                        `msg_content`,
+                    </if>
+                    <if test="fetchFields.fetchFields.msgTime==true">
+                        `msg_time`,
+                    </if>
+                    <if test="fetchFields.fetchFields.bookId==true">
+                        `book_id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.parentId==true">
+                        `parent_id`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.id==null">
+                        `id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.msgUserId==null">
+                        `msg_user_id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.msgUserName==null">
+                        `msg_user_name`,
+                    </if>
+                    <if test="fetchFields.excludeFields.msgUserGender==null">
+                        `msg_user_gender`,
+                    </if>
+                    <if test="fetchFields.excludeFields.msgContent==null">
+                        `msg_content`,
+                    </if>
+                    <if test="fetchFields.excludeFields.msgTime==null">
+                        `msg_time`,
+                    </if>
+                    <if test="fetchFields.excludeFields.bookId==null">
+                        `book_id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.parentId==null">
+                        `parent_id`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof com.dreamfield.dreamapi.model.dream.Msg$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

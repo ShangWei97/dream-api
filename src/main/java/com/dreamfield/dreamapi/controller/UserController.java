@@ -2,12 +2,14 @@ package com.dreamfield.dreamapi.controller;
 
 import com.dreamfield.dreamapi.constant.ReturnMsg;
 import com.dreamfield.dreamapi.enums.ReturnEnum;
+import com.dreamfield.dreamapi.mapper.dream.BookMapper;
+import com.dreamfield.dreamapi.mapper.dream.UserInfoMapper;
 import com.dreamfield.dreamapi.mapper.dream.UserMapper;
+import com.dreamfield.dreamapi.model.dream.Book;
 import com.dreamfield.dreamapi.model.dream.User;
-import com.dreamfield.dreamapi.request.GetCodeReqBean;
-import com.dreamfield.dreamapi.request.GetUserInfoReqBean;
-import com.dreamfield.dreamapi.request.LoginReqBean;
-import com.dreamfield.dreamapi.request.RegisterReqBean;
+import com.dreamfield.dreamapi.model.dream.UserInfo;
+import com.dreamfield.dreamapi.request.*;
+import com.dreamfield.dreamapi.response.GetUserInfoResponse;
 import com.dreamfield.dreamapi.utils.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
@@ -28,6 +30,12 @@ import java.util.Map;
 public class UserController {
 	@Autowired
 	private UserMapper userMapper;
+
+	@Autowired
+	private UserInfoMapper userInfoMapper;
+
+	@Autowired
+	private BookMapper bookMapper;
 
 	private final String host = "http://dingxin.market.alicloudapi.com";
 
@@ -201,18 +209,55 @@ public class UserController {
 		}
 	}
 
+	@PostMapping("updateUser")
+	public ReturnMsg updateUser(@RequestBody UpdateUserReqBean reqBean){
+		ReturnMsg returnMsg = new ReturnMsg();
+		User user = new User();
+		UserInfo userInfo = new UserInfo();
+		user.setId(reqBean.getUserId());
+		user.setUserName(reqBean.getUserName());
+		user.setSex(reqBean.getUserGender());
+		user.setUserTel(reqBean.getTelNumber());
+		userInfo.setUserId(reqBean.getUserId());
+		userInfo.setImgUrl(reqBean.getUserImgUrl());
+		userInfo.setUserSignature(reqBean.getUserSignature());
+		userMapper.updateUser(user);
+		UserInfo userInfo_param = new UserInfo();
+		userInfo_param.setUserId(reqBean.getUserId());
+		UserInfo userInfo_result = userInfoMapper.queryUserInfoLimit1(userInfo_param);
+		if ( userInfo_result != null) {
+			userInfoMapper.updateUserInfo(userInfo);
+		}else {
+			userInfoMapper.insertUserInfo(userInfo);
+		}
+		return returnMsg;
+	}
+
 	@PostMapping("getUserInfo")
 	public ReturnMsg getUserInfo(@RequestBody GetUserInfoReqBean reqBean){
 		ReturnMsg returnMsg = new ReturnMsg();
+		GetUserInfoResponse response = new GetUserInfoResponse();
 		if ( null == reqBean.getUserId()) {
 			returnMsg.setStatus(false);
 			returnMsg.setMsg("必填参数不能为空");
 		}
 		User user_param = new User();
 		user_param.setId(reqBean.getUserId());
+		UserInfo userInfo_param = new UserInfo();
+		userInfo_param.setUserId(reqBean.getUserId());
 		User user = userMapper.queryUserLimit1(user_param);
-        return null;
-
+		UserInfo userInfo = userInfoMapper.queryUserInfoLimit1(userInfo_param);
+		Book book = new Book();
+		book.setUserId(reqBean.getUserId());
+		List<Book> bookList = bookMapper.queryBook(book);
+		response.setUserName(user.getUserName());
+		response.setUserImgUrl(userInfo.getImgUrl());
+		response.setTelNumber(user.getUserTel());
+		response.setUserGender(user.getSex());
+		response.setUserSignature(userInfo.getUserSignature());
+		response.setSellBookList(bookList);
+		returnMsg.setData(response);
+		return returnMsg;
 	}
 
 }

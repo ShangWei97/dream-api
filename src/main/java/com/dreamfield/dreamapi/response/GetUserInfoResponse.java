@@ -1,6 +1,9 @@
 package com.dreamfield.dreamapi.response;
 
+import com.dreamfield.dreamapi.model.dream.Book;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * @author: shangwei
@@ -9,6 +12,16 @@ import lombok.Data;
 @Data
 public class GetUserInfoResponse {
 
+	private String telNumber;
 
+	private String userImgUrl;
+
+	private String userName;
+
+	private String userGender;
+
+	private String userSignature;
+
+	private List<Book> sellBookList;
 
 }
