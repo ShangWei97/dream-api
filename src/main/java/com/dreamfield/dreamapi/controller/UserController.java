@@ -45,6 +45,10 @@ public class UserController {
 
 	private final String appcode = "dbb50391be304f44890578654f04e99e";
 
+	private final String tpl_id_doraemon ="TP19040255";
+
+	private final String tpl_id_gat="TP1809092";
+
 	@PostMapping("login")
 	public ReturnMsg login(@RequestBody LoginReqBean reqBean){
 		log.info("login param:",reqBean);
@@ -104,7 +108,7 @@ public class UserController {
 		}
 	}
 
-	private ReturnMsg sendMsgCode(String userTel){
+	private ReturnMsg sendMsgCode(String userTel,String tpl_id){
 		ReturnMsg returnMsg = new ReturnMsg();
 		Map<String, String> headers = new HashMap<>();
 		int code = (int) (Math.random()*(10000-1000+1)+1000);
@@ -113,7 +117,7 @@ public class UserController {
 		Map<String, String> querys = new HashMap<String, String>();
 		querys.put("mobile", userTel);
 		querys.put("param", "code:"+code+"");
-		querys.put("tpl_id", "TP1809092");
+		querys.put("tpl_id", tpl_id);
 		Map<String, String> bodys = new HashMap<>();
 		try {
 			HttpResponse response = HttpUtils.doPost(host, path, method, headers, querys, bodys);
@@ -141,7 +145,12 @@ public class UserController {
 			List<User> userList = userMapper.queryUser(user);
 			if (null != userList && userList.size() > 0) {
 				user.setUserTel(reqBean.getTelNum());
-				ReturnMsg msg = sendMsgCode(reqBean.getTelNum());
+				ReturnMsg msg;
+				if (reqBean.getTplId() == 1) {
+				     msg = sendMsgCode(reqBean.getTelNum(),tpl_id_doraemon);
+				}else {
+					 msg = sendMsgCode(reqBean.getTelNum(),tpl_id_gat);
+				}
 				if (msg.getStatus()) {
 					user.setLoginCode(msg.getData().toString());
 					userMapper.updateByUserTel(user.getUserTel(),user.getLoginCode());
@@ -162,7 +171,12 @@ public class UserController {
 			user_param.setUserTel(reqBean.getTelNum());
 			User user_result = userMapper.queryUserLimit1(user);
 			if ( user_result == null) {
-				ReturnMsg msg = sendMsgCode(reqBean.getTelNum());
+				ReturnMsg msg;
+				if (reqBean.getTplId() == 1){
+					msg = sendMsgCode(reqBean.getTelNum(),tpl_id_doraemon);
+				}else {
+					msg = sendMsgCode(reqBean.getTelNum(),tpl_id_gat);
+				}
 				User user1 = new User();
 				user1.setLoginCode(msg.getData().toString());
 				user1.setUserTel(reqBean.getTelNum());

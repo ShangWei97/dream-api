@@ -12,4 +12,6 @@ public class GetCodeReqBean {
 
 	private String telNum;
 
+	private Integer tplId;
+
 }
