@@ -51,7 +51,7 @@ public class UserController {
 
 	@PostMapping("login")
 	public ReturnMsg login(@RequestBody LoginReqBean reqBean){
-		log.info("login param:",reqBean);
+		log.debug("login param:",reqBean);
 		ReturnMsg returnMsg = new ReturnMsg();
 		if ( null == reqBean.getUserTel()){
 			returnMsg.setCode(ReturnEnum.NOT_NULL.getCode());
@@ -133,6 +133,7 @@ public class UserController {
 
 	@PostMapping("login/getCode")
 	public ReturnMsg getCode(@RequestBody GetCodeReqBean reqBean){
+		log.debug("getCode param",reqBean);
 		ReturnMsg returnMsg = new ReturnMsg();
 		User user = new User();
 		if (null == reqBean.getTelNum()){
@@ -199,7 +200,7 @@ public class UserController {
 
 	@PostMapping("register")
 	public ReturnMsg register(@RequestBody RegisterReqBean reqBean){
-		log.info("register request:",reqBean);
+		log.debug("register request:",reqBean);
 		ReturnMsg returnMsg = new ReturnMsg();
 		User user_param = new User();
 		user_param.setUserTel(reqBean.getUserTel());
