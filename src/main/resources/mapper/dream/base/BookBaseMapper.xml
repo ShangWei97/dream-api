@@ -47,6 +47,12 @@
                     <if test="valid!=null">
                         `valid`,
                     </if>
+                    <if test="bookNum!=null">
+                        `book_num`,
+                    </if>
+                    <if test="bookPublisher!=null">
+                        `book_publisher`,
+                    </if>
         </trim>
         )
         VALUES
@@ -90,6 +96,12 @@
                 </if>
                 <if test="valid!=null">
                     #{valid},
+                </if>
+                <if test="bookNum!=null">
+                    #{bookNum},
+                </if>
+                <if test="bookPublisher!=null">
+                    #{bookPublisher},
                 </if>
         </trim>
         )
@@ -138,6 +150,12 @@
             <if test="valid != null">
                 `valid` = #{valid},
             </if>
+            <if test="bookNum != null">
+                `book_num` = #{bookNum},
+            </if>
+            <if test="bookPublisher != null and bookPublisher!=''">
+                `book_publisher` = #{bookPublisher},
+            </if>
         </trim>
         WHERE
         <trim suffixOverrides="and">
@@ -184,6 +202,12 @@
         </if>
         <if test="set.valid != null">
             `valid` = #{set.valid},
+        </if>
+        <if test="set.bookNum != null">
+            `book_num` = #{set.bookNum},
+        </if>
+        <if test="set.bookPublisher != null and set.bookPublisher!=''">
+            `book_publisher` = #{set.bookPublisher},
         </if>
         </trim>
         <trim prefix="where" suffixOverrides="and | or">
@@ -391,6 +415,38 @@
             <if test="where.validEd!=null">
                 `valid` &lt;= #{where.validEd} and
             </if>
+                <if test="where.bookNumList != null">
+                    `book_num` in
+                    <foreach collection="where.bookNumList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.bookNumSt !=null">
+                `book_num` >= #{where.bookNumSt} and
+            </if>
+            <if test="where.bookNumEd!=null">
+                `book_num` &lt;= #{where.bookNumEd} and
+            </if>
+                <if test="where.bookPublisherList != null">
+                    `book_publisher` in
+                    <foreach collection="where.bookPublisherList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyBookPublisher!=null and where.fuzzyBookPublisher.size()>0">
+                (
+                <foreach collection="where.fuzzyBookPublisher"  separator="or" item="item">
+                    `Book_publisher` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyBookPublisher!=null and where.rightFuzzyBookPublisher.size()>0">
+                (
+                <foreach collection="where.rightFuzzyBookPublisher"  separator="or" item="item">
+                    `Book_publisher` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
         </trim>
     </update>
 
@@ -409,6 +465,8 @@
         <result property="bookSBNNum" column="book_SBN_num"/>
         <result property="newUserId" column="new_user_id"/>
         <result property="valid" column="valid"/>
+        <result property="bookNum" column="book_num"/>
+        <result property="bookPublisher" column="book_publisher"/>
     </resultMap>
 
 
@@ -455,6 +513,12 @@
             </if>
             <if test="valid != null">
                 `valid` = #{valid} and
+            </if>
+            <if test="bookNum != null">
+                `book_num` = #{bookNum} and
+            </if>
+            <if test="bookPublisher != null and bookPublisher!=''">
+                `book_publisher` = #{bookPublisher} and
             </if>
             <if test = "(_parameter instanceof com.dreamfield.dreamapi.model.dream.Book$QueryBuilder) == true">
                 <if test="idList != null">
@@ -661,6 +725,38 @@
                 <if test="validEd!=null">
                     `valid` &lt;= #{validEd} and
                 </if>
+                <if test="bookNumList != null">
+                    `book_num` in
+                    <foreach collection="bookNumList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="bookNumSt !=null">
+                    `book_num` >= #{bookNumSt} and
+                </if>
+                <if test="bookNumEd!=null">
+                    `book_num` &lt;= #{bookNumEd} and
+                </if>
+                <if test="bookPublisherList != null">
+                    `book_publisher` in
+                    <foreach collection="bookPublisherList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyBookPublisher!=null and fuzzyBookPublisher.size()>0">
+                    (
+                    <foreach collection="fuzzyBookPublisher"  separator="or" item="item">
+                        `Book_publisher` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyBookPublisher!=null and rightFuzzyBookPublisher.size()>0">
+                    (
+                    <foreach collection="rightFuzzyBookPublisher"  separator="or" item="item">
+                        `Book_publisher` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
             </if>
         </trim>
     </select>
@@ -708,6 +804,12 @@
             </if>
             <if test="valid != null">
                 `valid` = #{valid} and
+            </if>
+            <if test="bookNum != null">
+                `book_num` = #{bookNum} and
+            </if>
+            <if test="bookPublisher != null and bookPublisher!=''">
+                `book_publisher` = #{bookPublisher} and
             </if>
             <if test = "(_parameter instanceof com.dreamfield.dreamapi.model.dream.Book$QueryBuilder) == true">
                     <if test="idList != null">
@@ -914,6 +1016,38 @@
                 <if test="validEd!=null">
                     `valid` &lt;= #{validEd} and
                 </if>
+                    <if test="bookNumList != null">
+                        `book_num` in
+                        <foreach collection="bookNumList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="bookNumSt !=null">
+                    `book_num` >= #{bookNumSt} and
+                </if>
+                <if test="bookNumEd!=null">
+                    `book_num` &lt;= #{bookNumEd} and
+                </if>
+                    <if test="bookPublisherList != null">
+                        `book_publisher` in
+                        <foreach collection="bookPublisherList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyBookPublisher!=null and fuzzyBookPublisher.size()>0">
+                    (
+                    <foreach collection="fuzzyBookPublisher"  separator="or" item="item">
+                        `Book_publisher` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyBookPublisher!=null and rightFuzzyBookPublisher.size()>0">
+                    (
+                    <foreach collection="rightFuzzyBookPublisher"  separator="or" item="item">
+                        `Book_publisher` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
             </if>
         </trim>
         limit 1
@@ -934,6 +1068,8 @@
         `book_SBN_num`,
         `new_user_id`,
         `valid`,
+        `book_num`,
+        `book_publisher`,
         </trim>
     </sql>
 
@@ -993,6 +1129,12 @@
                     <if test="fetchFields.fetchFields.valid==true">
                         `valid`,
                     </if>
+                    <if test="fetchFields.fetchFields.bookNum==true">
+                        `book_num`,
+                    </if>
+                    <if test="fetchFields.fetchFields.bookPublisher==true">
+                        `book_publisher`,
+                    </if>
                     </if>
                     <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
                     <if test="fetchFields.excludeFields.id==null">
@@ -1033,6 +1175,12 @@
                     </if>
                     <if test="fetchFields.excludeFields.valid==null">
                         `valid`,
+                    </if>
+                    <if test="fetchFields.excludeFields.bookNum==null">
+                        `book_num`,
+                    </if>
+                    <if test="fetchFields.excludeFields.bookPublisher==null">
+                        `book_publisher`,
                     </if>
                     </if>
                     <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">

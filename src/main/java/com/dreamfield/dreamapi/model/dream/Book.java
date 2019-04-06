@@ -10,7 +10,7 @@ import java.util.List;
 */
 public class Book implements Serializable {
 
-    private static final long serialVersionUID = 1554545975962L;
+    private static final long serialVersionUID = 1554550578132L;
 
 
     /**
@@ -92,6 +92,18 @@ public class Book implements Serializable {
     */
     private Integer valid;
 
+    /**
+    * 
+    * isNullAble:0
+    */
+    private Integer bookNum;
+
+    /**
+    * 
+    * isNullAble:1
+    */
+    private String bookPublisher;
+
 
     public void setId(Integer id){this.id = id;}
 
@@ -144,6 +156,14 @@ public class Book implements Serializable {
     public void setValid(Integer valid){this.valid = valid;}
 
     public Integer getValid(){return this.valid;}
+
+    public void setBookNum(Integer bookNum){this.bookNum = bookNum;}
+
+    public Integer getBookNum(){return this.bookNum;}
+
+    public void setBookPublisher(String bookPublisher){this.bookPublisher = bookPublisher;}
+
+    public String getBookPublisher(){return this.bookPublisher;}
     @Override
     public String toString() {
         return "Book{" +
@@ -160,6 +180,8 @@ public class Book implements Serializable {
                 "bookSBNNum='" + bookSBNNum + '\'' +
                 "newUserId='" + newUserId + '\'' +
                 "valid='" + valid + '\'' +
+                "bookNum='" + bookNum + '\'' +
+                "bookPublisher='" + bookPublisher + '\'' +
             '}';
     }
 
@@ -364,6 +386,30 @@ public class Book implements Serializable {
 
         public Integer getValidEd(){return this.validEd;}
 
+        private List<Integer> bookNumList;
+
+        public List<Integer> getBookNumList(){return this.bookNumList;}
+
+        private Integer bookNumSt;
+
+        private Integer bookNumEd;
+
+        public Integer getBookNumSt(){return this.bookNumSt;}
+
+        public Integer getBookNumEd(){return this.bookNumEd;}
+
+        private List<String> bookPublisherList;
+
+        public List<String> getBookPublisherList(){return this.bookPublisherList;}
+
+
+        private List<String> fuzzyBookPublisher;
+
+        public List<String> getFuzzyBookPublisher(){return this.fuzzyBookPublisher;}
+
+        private List<String> rightFuzzyBookPublisher;
+
+        public List<String> getRightFuzzyBookPublisher(){return this.rightFuzzyBookPublisher;}
         private QueryBuilder (){
             this.fetchFields = new HashMap<>();
         }
@@ -924,6 +970,92 @@ public class Book implements Serializable {
             setFetchFields("excludeFields","valid");
             return this;
         }
+
+        public QueryBuilder bookNumBetWeen(Integer bookNumSt,Integer bookNumEd){
+            this.bookNumSt = bookNumSt;
+            this.bookNumEd = bookNumEd;
+            return this;
+        }
+
+        public QueryBuilder bookNumGreaterEqThan(Integer bookNumSt){
+            this.bookNumSt = bookNumSt;
+            return this;
+        }
+        public QueryBuilder bookNumLessEqThan(Integer bookNumEd){
+            this.bookNumEd = bookNumEd;
+            return this;
+        }
+
+
+        public QueryBuilder bookNum(Integer bookNum){
+            setBookNum(bookNum);
+            return this;
+        }
+
+        public QueryBuilder bookNumList(Integer ... bookNum){
+            this.bookNumList = solveNullList(bookNum);
+            return this;
+        }
+
+        public QueryBuilder bookNumList(List<Integer> bookNum){
+            this.bookNumList = bookNum;
+            return this;
+        }
+
+        public QueryBuilder fetchBookNum(){
+            setFetchFields("fetchFields","bookNum");
+            return this;
+        }
+
+        public QueryBuilder excludeBookNum(){
+            setFetchFields("excludeFields","bookNum");
+            return this;
+        }
+
+        public QueryBuilder fuzzyBookPublisher (List<String> fuzzyBookPublisher){
+            this.fuzzyBookPublisher = fuzzyBookPublisher;
+            return this;
+        }
+
+        public QueryBuilder fuzzyBookPublisher (String ... fuzzyBookPublisher){
+            this.fuzzyBookPublisher = solveNullList(fuzzyBookPublisher);
+            return this;
+        }
+
+        public QueryBuilder rightFuzzyBookPublisher (List<String> rightFuzzyBookPublisher){
+            this.rightFuzzyBookPublisher = rightFuzzyBookPublisher;
+            return this;
+        }
+
+        public QueryBuilder rightFuzzyBookPublisher (String ... rightFuzzyBookPublisher){
+            this.rightFuzzyBookPublisher = solveNullList(rightFuzzyBookPublisher);
+            return this;
+        }
+
+        public QueryBuilder bookPublisher(String bookPublisher){
+            setBookPublisher(bookPublisher);
+            return this;
+        }
+
+        public QueryBuilder bookPublisherList(String ... bookPublisher){
+            this.bookPublisherList = solveNullList(bookPublisher);
+            return this;
+        }
+
+        public QueryBuilder bookPublisherList(List<String> bookPublisher){
+            this.bookPublisherList = bookPublisher;
+            return this;
+        }
+
+        public QueryBuilder fetchBookPublisher(){
+            setFetchFields("fetchFields","bookPublisher");
+            return this;
+        }
+
+        public QueryBuilder excludeBookPublisher(){
+            setFetchFields("excludeFields","bookPublisher");
+            return this;
+        }
         private <T>List<T> solveNullList(T ... objs){
             if (objs != null){
             List<T> list = new ArrayList<>();
@@ -1123,6 +1255,30 @@ public class Book implements Serializable {
 
         public Integer getValidEd(){return this.validEd;}
 
+        private List<Integer> bookNumList;
+
+        public List<Integer> getBookNumList(){return this.bookNumList;}
+
+        private Integer bookNumSt;
+
+        private Integer bookNumEd;
+
+        public Integer getBookNumSt(){return this.bookNumSt;}
+
+        public Integer getBookNumEd(){return this.bookNumEd;}
+
+        private List<String> bookPublisherList;
+
+        public List<String> getBookPublisherList(){return this.bookPublisherList;}
+
+
+        private List<String> fuzzyBookPublisher;
+
+        public List<String> getFuzzyBookPublisher(){return this.fuzzyBookPublisher;}
+
+        private List<String> rightFuzzyBookPublisher;
+
+        public List<String> getRightFuzzyBookPublisher(){return this.rightFuzzyBookPublisher;}
 
         public ConditionBuilder idBetWeen(Integer idSt,Integer idEd){
             this.idSt = idSt;
@@ -1486,6 +1642,62 @@ public class Book implements Serializable {
             return this;
         }
 
+        public ConditionBuilder bookNumBetWeen(Integer bookNumSt,Integer bookNumEd){
+            this.bookNumSt = bookNumSt;
+            this.bookNumEd = bookNumEd;
+            return this;
+        }
+
+        public ConditionBuilder bookNumGreaterEqThan(Integer bookNumSt){
+            this.bookNumSt = bookNumSt;
+            return this;
+        }
+        public ConditionBuilder bookNumLessEqThan(Integer bookNumEd){
+            this.bookNumEd = bookNumEd;
+            return this;
+        }
+
+
+        public ConditionBuilder bookNumList(Integer ... bookNum){
+            this.bookNumList = solveNullList(bookNum);
+            return this;
+        }
+
+        public ConditionBuilder bookNumList(List<Integer> bookNum){
+            this.bookNumList = bookNum;
+            return this;
+        }
+
+        public ConditionBuilder fuzzyBookPublisher (List<String> fuzzyBookPublisher){
+            this.fuzzyBookPublisher = fuzzyBookPublisher;
+            return this;
+        }
+
+        public ConditionBuilder fuzzyBookPublisher (String ... fuzzyBookPublisher){
+            this.fuzzyBookPublisher = solveNullList(fuzzyBookPublisher);
+            return this;
+        }
+
+        public ConditionBuilder rightFuzzyBookPublisher (List<String> rightFuzzyBookPublisher){
+            this.rightFuzzyBookPublisher = rightFuzzyBookPublisher;
+            return this;
+        }
+
+        public ConditionBuilder rightFuzzyBookPublisher (String ... rightFuzzyBookPublisher){
+            this.rightFuzzyBookPublisher = solveNullList(rightFuzzyBookPublisher);
+            return this;
+        }
+
+        public ConditionBuilder bookPublisherList(String ... bookPublisher){
+            this.bookPublisherList = solveNullList(bookPublisher);
+            return this;
+        }
+
+        public ConditionBuilder bookPublisherList(List<String> bookPublisher){
+            this.bookPublisherList = bookPublisher;
+            return this;
+        }
+
         private <T>List<T> solveNullList(T ... objs){
             if (objs != null){
             List<T> list = new ArrayList<>();
@@ -1560,6 +1772,14 @@ public class Book implements Serializable {
         }
         public Builder valid(Integer valid){
             this.obj.setValid(valid);
+            return this;
+        }
+        public Builder bookNum(Integer bookNum){
+            this.obj.setBookNum(bookNum);
+            return this;
+        }
+        public Builder bookPublisher(String bookPublisher){
+            this.obj.setBookPublisher(bookPublisher);
             return this;
         }
         public Book build(){return obj;}
