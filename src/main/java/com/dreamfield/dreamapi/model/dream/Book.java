@@ -10,7 +10,7 @@ import java.util.List;
 */
 public class Book implements Serializable {
 
-    private static final long serialVersionUID = 1554042030718L;
+    private static final long serialVersionUID = 1554545975962L;
 
 
     /**
@@ -80,6 +80,18 @@ public class Book implements Serializable {
     */
     private String bookSBNNum;
 
+    /**
+    * 
+    * isNullAble:1
+    */
+    private Integer newUserId;
+
+    /**
+    * 默认为1，默认为没有卖出去
+    * isNullAble:0,defaultVal:1
+    */
+    private Integer valid;
+
 
     public void setId(Integer id){this.id = id;}
 
@@ -124,6 +136,14 @@ public class Book implements Serializable {
     public void setBookSBNNum(String bookSBNNum){this.bookSBNNum = bookSBNNum;}
 
     public String getBookSBNNum(){return this.bookSBNNum;}
+
+    public void setNewUserId(Integer newUserId){this.newUserId = newUserId;}
+
+    public Integer getNewUserId(){return this.newUserId;}
+
+    public void setValid(Integer valid){this.valid = valid;}
+
+    public Integer getValid(){return this.valid;}
     @Override
     public String toString() {
         return "Book{" +
@@ -138,6 +158,8 @@ public class Book implements Serializable {
                 "bookTime='" + bookTime + '\'' +
                 "bookType='" + bookType + '\'' +
                 "bookSBNNum='" + bookSBNNum + '\'' +
+                "newUserId='" + newUserId + '\'' +
+                "valid='" + valid + '\'' +
             '}';
     }
 
@@ -318,6 +340,30 @@ public class Book implements Serializable {
         private List<String> rightFuzzyBookSBNNum;
 
         public List<String> getRightFuzzyBookSBNNum(){return this.rightFuzzyBookSBNNum;}
+        private List<Integer> newUserIdList;
+
+        public List<Integer> getNewUserIdList(){return this.newUserIdList;}
+
+        private Integer newUserIdSt;
+
+        private Integer newUserIdEd;
+
+        public Integer getNewUserIdSt(){return this.newUserIdSt;}
+
+        public Integer getNewUserIdEd(){return this.newUserIdEd;}
+
+        private List<Integer> validList;
+
+        public List<Integer> getValidList(){return this.validList;}
+
+        private Integer validSt;
+
+        private Integer validEd;
+
+        public Integer getValidSt(){return this.validSt;}
+
+        public Integer getValidEd(){return this.validEd;}
+
         private QueryBuilder (){
             this.fetchFields = new HashMap<>();
         }
@@ -796,6 +842,88 @@ public class Book implements Serializable {
             setFetchFields("excludeFields","bookSBNNum");
             return this;
         }
+
+        public QueryBuilder newUserIdBetWeen(Integer newUserIdSt,Integer newUserIdEd){
+            this.newUserIdSt = newUserIdSt;
+            this.newUserIdEd = newUserIdEd;
+            return this;
+        }
+
+        public QueryBuilder newUserIdGreaterEqThan(Integer newUserIdSt){
+            this.newUserIdSt = newUserIdSt;
+            return this;
+        }
+        public QueryBuilder newUserIdLessEqThan(Integer newUserIdEd){
+            this.newUserIdEd = newUserIdEd;
+            return this;
+        }
+
+
+        public QueryBuilder newUserId(Integer newUserId){
+            setNewUserId(newUserId);
+            return this;
+        }
+
+        public QueryBuilder newUserIdList(Integer ... newUserId){
+            this.newUserIdList = solveNullList(newUserId);
+            return this;
+        }
+
+        public QueryBuilder newUserIdList(List<Integer> newUserId){
+            this.newUserIdList = newUserId;
+            return this;
+        }
+
+        public QueryBuilder fetchNewUserId(){
+            setFetchFields("fetchFields","newUserId");
+            return this;
+        }
+
+        public QueryBuilder excludeNewUserId(){
+            setFetchFields("excludeFields","newUserId");
+            return this;
+        }
+
+        public QueryBuilder validBetWeen(Integer validSt,Integer validEd){
+            this.validSt = validSt;
+            this.validEd = validEd;
+            return this;
+        }
+
+        public QueryBuilder validGreaterEqThan(Integer validSt){
+            this.validSt = validSt;
+            return this;
+        }
+        public QueryBuilder validLessEqThan(Integer validEd){
+            this.validEd = validEd;
+            return this;
+        }
+
+
+        public QueryBuilder valid(Integer valid){
+            setValid(valid);
+            return this;
+        }
+
+        public QueryBuilder validList(Integer ... valid){
+            this.validList = solveNullList(valid);
+            return this;
+        }
+
+        public QueryBuilder validList(List<Integer> valid){
+            this.validList = valid;
+            return this;
+        }
+
+        public QueryBuilder fetchValid(){
+            setFetchFields("fetchFields","valid");
+            return this;
+        }
+
+        public QueryBuilder excludeValid(){
+            setFetchFields("excludeFields","valid");
+            return this;
+        }
         private <T>List<T> solveNullList(T ... objs){
             if (objs != null){
             List<T> list = new ArrayList<>();
@@ -971,6 +1099,30 @@ public class Book implements Serializable {
         private List<String> rightFuzzyBookSBNNum;
 
         public List<String> getRightFuzzyBookSBNNum(){return this.rightFuzzyBookSBNNum;}
+        private List<Integer> newUserIdList;
+
+        public List<Integer> getNewUserIdList(){return this.newUserIdList;}
+
+        private Integer newUserIdSt;
+
+        private Integer newUserIdEd;
+
+        public Integer getNewUserIdSt(){return this.newUserIdSt;}
+
+        public Integer getNewUserIdEd(){return this.newUserIdEd;}
+
+        private List<Integer> validList;
+
+        public List<Integer> getValidList(){return this.validList;}
+
+        private Integer validSt;
+
+        private Integer validEd;
+
+        public Integer getValidSt(){return this.validSt;}
+
+        public Integer getValidEd(){return this.validEd;}
+
 
         public ConditionBuilder idBetWeen(Integer idSt,Integer idEd){
             this.idSt = idSt;
@@ -1282,6 +1434,58 @@ public class Book implements Serializable {
             return this;
         }
 
+        public ConditionBuilder newUserIdBetWeen(Integer newUserIdSt,Integer newUserIdEd){
+            this.newUserIdSt = newUserIdSt;
+            this.newUserIdEd = newUserIdEd;
+            return this;
+        }
+
+        public ConditionBuilder newUserIdGreaterEqThan(Integer newUserIdSt){
+            this.newUserIdSt = newUserIdSt;
+            return this;
+        }
+        public ConditionBuilder newUserIdLessEqThan(Integer newUserIdEd){
+            this.newUserIdEd = newUserIdEd;
+            return this;
+        }
+
+
+        public ConditionBuilder newUserIdList(Integer ... newUserId){
+            this.newUserIdList = solveNullList(newUserId);
+            return this;
+        }
+
+        public ConditionBuilder newUserIdList(List<Integer> newUserId){
+            this.newUserIdList = newUserId;
+            return this;
+        }
+
+        public ConditionBuilder validBetWeen(Integer validSt,Integer validEd){
+            this.validSt = validSt;
+            this.validEd = validEd;
+            return this;
+        }
+
+        public ConditionBuilder validGreaterEqThan(Integer validSt){
+            this.validSt = validSt;
+            return this;
+        }
+        public ConditionBuilder validLessEqThan(Integer validEd){
+            this.validEd = validEd;
+            return this;
+        }
+
+
+        public ConditionBuilder validList(Integer ... valid){
+            this.validList = solveNullList(valid);
+            return this;
+        }
+
+        public ConditionBuilder validList(List<Integer> valid){
+            this.validList = valid;
+            return this;
+        }
+
         private <T>List<T> solveNullList(T ... objs){
             if (objs != null){
             List<T> list = new ArrayList<>();
@@ -1348,6 +1552,14 @@ public class Book implements Serializable {
         }
         public Builder bookSBNNum(String bookSBNNum){
             this.obj.setBookSBNNum(bookSBNNum);
+            return this;
+        }
+        public Builder newUserId(Integer newUserId){
+            this.obj.setNewUserId(newUserId);
+            return this;
+        }
+        public Builder valid(Integer valid){
+            this.obj.setValid(valid);
             return this;
         }
         public Book build(){return obj;}

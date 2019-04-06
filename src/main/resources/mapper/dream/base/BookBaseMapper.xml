@@ -41,6 +41,12 @@
                     <if test="bookSBNNum!=null">
                         `book_SBN_num`,
                     </if>
+                    <if test="newUserId!=null">
+                        `new_user_id`,
+                    </if>
+                    <if test="valid!=null">
+                        `valid`,
+                    </if>
         </trim>
         )
         VALUES
@@ -78,6 +84,12 @@
                 </if>
                 <if test="bookSBNNum!=null">
                     #{bookSBNNum},
+                </if>
+                <if test="newUserId!=null">
+                    #{newUserId},
+                </if>
+                <if test="valid!=null">
+                    #{valid},
                 </if>
         </trim>
         )
@@ -120,6 +132,12 @@
             <if test="bookSBNNum != null and bookSBNNum!=''">
                 `book_SBN_num` = #{bookSBNNum},
             </if>
+            <if test="newUserId != null">
+                `new_user_id` = #{newUserId},
+            </if>
+            <if test="valid != null">
+                `valid` = #{valid},
+            </if>
         </trim>
         WHERE
         <trim suffixOverrides="and">
@@ -160,6 +178,12 @@
         </if>
         <if test="set.bookSBNNum != null and set.bookSBNNum!=''">
             `book_SBN_num` = #{set.bookSBNNum},
+        </if>
+        <if test="set.newUserId != null">
+            `new_user_id` = #{set.newUserId},
+        </if>
+        <if test="set.valid != null">
+            `valid` = #{set.valid},
         </if>
         </trim>
         <trim prefix="where" suffixOverrides="and | or">
@@ -343,6 +367,30 @@
                 </foreach>
                 ) and
             </if>
+                <if test="where.newUserIdList != null">
+                    `new_user_id` in
+                    <foreach collection="where.newUserIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.newUserIdSt !=null">
+                `new_user_id` >= #{where.newUserIdSt} and
+            </if>
+            <if test="where.newUserIdEd!=null">
+                `new_user_id` &lt;= #{where.newUserIdEd} and
+            </if>
+                <if test="where.validList != null">
+                    `valid` in
+                    <foreach collection="where.validList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.validSt !=null">
+                `valid` >= #{where.validSt} and
+            </if>
+            <if test="where.validEd!=null">
+                `valid` &lt;= #{where.validEd} and
+            </if>
         </trim>
     </update>
 
@@ -359,6 +407,8 @@
         <result property="bookTime" column="book_time"/>
         <result property="bookType" column="book_type"/>
         <result property="bookSBNNum" column="book_SBN_num"/>
+        <result property="newUserId" column="new_user_id"/>
+        <result property="valid" column="valid"/>
     </resultMap>
 
 
@@ -399,6 +449,12 @@
             </if>
             <if test="bookSBNNum != null and bookSBNNum!=''">
                 `book_SBN_num` = #{bookSBNNum} and
+            </if>
+            <if test="newUserId != null">
+                `new_user_id` = #{newUserId} and
+            </if>
+            <if test="valid != null">
+                `valid` = #{valid} and
             </if>
             <if test = "(_parameter instanceof com.dreamfield.dreamapi.model.dream.Book$QueryBuilder) == true">
                 <if test="idList != null">
@@ -581,6 +637,30 @@
                     </foreach>
                     ) and
                 </if>
+                <if test="newUserIdList != null">
+                    `new_user_id` in
+                    <foreach collection="newUserIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="newUserIdSt !=null">
+                    `new_user_id` >= #{newUserIdSt} and
+                </if>
+                <if test="newUserIdEd!=null">
+                    `new_user_id` &lt;= #{newUserIdEd} and
+                </if>
+                <if test="validList != null">
+                    `valid` in
+                    <foreach collection="validList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="validSt !=null">
+                    `valid` >= #{validSt} and
+                </if>
+                <if test="validEd!=null">
+                    `valid` &lt;= #{validEd} and
+                </if>
             </if>
         </trim>
     </select>
@@ -622,6 +702,12 @@
             </if>
             <if test="bookSBNNum != null and bookSBNNum!=''">
                 `book_SBN_num` = #{bookSBNNum} and
+            </if>
+            <if test="newUserId != null">
+                `new_user_id` = #{newUserId} and
+            </if>
+            <if test="valid != null">
+                `valid` = #{valid} and
             </if>
             <if test = "(_parameter instanceof com.dreamfield.dreamapi.model.dream.Book$QueryBuilder) == true">
                     <if test="idList != null">
@@ -804,6 +890,30 @@
                     </foreach>
                     ) and
                 </if>
+                    <if test="newUserIdList != null">
+                        `new_user_id` in
+                        <foreach collection="newUserIdList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="newUserIdSt !=null">
+                    `new_user_id` >= #{newUserIdSt} and
+                </if>
+                <if test="newUserIdEd!=null">
+                    `new_user_id` &lt;= #{newUserIdEd} and
+                </if>
+                    <if test="validList != null">
+                        `valid` in
+                        <foreach collection="validList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="validSt !=null">
+                    `valid` >= #{validSt} and
+                </if>
+                <if test="validEd!=null">
+                    `valid` &lt;= #{validEd} and
+                </if>
             </if>
         </trim>
         limit 1
@@ -822,6 +932,8 @@
         `book_time`,
         `book_type`,
         `book_SBN_num`,
+        `new_user_id`,
+        `valid`,
         </trim>
     </sql>
 
@@ -875,6 +987,12 @@
                     <if test="fetchFields.fetchFields.bookSBNNum==true">
                         `book_SBN_num`,
                     </if>
+                    <if test="fetchFields.fetchFields.newUserId==true">
+                        `new_user_id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.valid==true">
+                        `valid`,
+                    </if>
                     </if>
                     <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
                     <if test="fetchFields.excludeFields.id==null">
@@ -909,6 +1027,12 @@
                     </if>
                     <if test="fetchFields.excludeFields.bookSBNNum==null">
                         `book_SBN_num`,
+                    </if>
+                    <if test="fetchFields.excludeFields.newUserId==null">
+                        `new_user_id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.valid==null">
+                        `valid`,
                     </if>
                     </if>
                     <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
