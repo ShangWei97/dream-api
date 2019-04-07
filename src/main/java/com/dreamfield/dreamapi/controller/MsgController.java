@@ -8,11 +8,15 @@ import com.dreamfield.dreamapi.model.dream.Msg;
 import com.dreamfield.dreamapi.model.dream.User;
 import com.dreamfield.dreamapi.model.dream.UserInfo;
 import com.dreamfield.dreamapi.request.AddMsgReqBean;
+import com.dreamfield.dreamapi.request.GetMsgInfoReqBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * @author: shangwei
@@ -54,5 +58,18 @@ public class MsgController {
 		return returnMsg;
 	}
 
+	@PostMapping("getMsgInfo")
+	public ReturnMsg getMsgInfo(@RequestBody GetMsgInfoReqBean reqBean){
+		ReturnMsg returnMsg = new ReturnMsg();
+		Msg msg_param = new Msg();
+		msg_param.setBookId(reqBean.getBookId());
+		if (reqBean.getParentId()!= null){
+			msg_param.setParentId(reqBean.getParentId());
+		}
+		List<Msg> msgList = msgMapper.queryMsg(msg_param);
+		msgList.sort(Comparator.comparing(Msg::getMsgTime));
+		returnMsg.setData(msgList);
+		return returnMsg;
+	}
 
 }
