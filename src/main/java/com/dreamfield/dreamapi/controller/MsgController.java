@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 
@@ -50,6 +51,7 @@ public class MsgController {
 		msg.setMsgContent(reqBean.getContent());
 		msg.setMsgUserImgUrl(userInfo_result.getImgUrl());
 		msg.setMsgUserName(user_result.getUserName());
+		msg.setMsgTime(LocalDateTime.now());
 		if ( reqBean.getParentId() != null) {
 			msg.setParentId(reqBean.getParentId());
 		}
