@@ -5,12 +5,10 @@ import com.dreamfield.dreamapi.mapper.dream.BookMapper;
 import com.dreamfield.dreamapi.model.dream.Book;
 import com.dreamfield.dreamapi.request.AddBookReqBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author: shangwei
@@ -41,6 +39,16 @@ public class BookController {
 		book.setBookNewType(reqBean.getBookNewType());
 		book.setBookType(reqBean.getBookType());
 		bookMapper.insertBook(book);
+		return returnMsg;
+	}
+
+	@GetMapping("getAllBook")
+	public ReturnMsg getAllBook(){
+		ReturnMsg returnMsg = new ReturnMsg();
+		Book book = new Book();
+		book.setValid(1);
+		List<Book> bookList =bookMapper.queryBook(book);
+		returnMsg.setData(bookList);
 		return returnMsg;
 	}
 

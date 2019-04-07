@@ -68,7 +68,7 @@ public class Book implements Serializable {
     * 
     * isNullAble:1
     */
-    @JsonFormat(pattern="yyyy-MM-dd HH-mm-ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private java.time.LocalDateTime bookTime;
 
     /**
