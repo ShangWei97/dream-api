@@ -26,6 +26,9 @@
                     <if test="msgTime!=null">
                         `msg_time`,
                     </if>
+                    <if test="msgUserImgUrl!=null">
+                        `msg_user_img_url`,
+                    </if>
                     <if test="bookId!=null">
                         `book_id`,
                     </if>
@@ -54,6 +57,9 @@
                 </if>
                 <if test="msgTime!=null">
                     #{msgTime},
+                </if>
+                <if test="msgUserImgUrl!=null">
+                    #{msgUserImgUrl},
                 </if>
                 <if test="bookId!=null">
                     #{bookId},
@@ -87,6 +93,9 @@
             <if test="msgTime != null">
                 `msg_time` = #{msgTime},
             </if>
+            <if test="msgUserImgUrl != null and msgUserImgUrl!=''">
+                `msg_user_img_url` = #{msgUserImgUrl},
+            </if>
             <if test="bookId != null">
                 `book_id` = #{bookId},
             </if>
@@ -118,6 +127,9 @@
         </if>
         <if test="set.msgTime != null">
             `msg_time` = #{set.msgTime},
+        </if>
+        <if test="set.msgUserImgUrl != null and set.msgUserImgUrl!=''">
+            `msg_user_img_url` = #{set.msgUserImgUrl},
         </if>
         <if test="set.bookId != null">
             `book_id` = #{set.bookId},
@@ -223,6 +235,26 @@
             <if test="where.msgTimeEd!=null">
                 `msg_time` &lt;= #{where.msgTimeEd} and
             </if>
+                <if test="where.msgUserImgUrlList != null">
+                    `msg_user_img_url` in
+                    <foreach collection="where.msgUserImgUrlList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyMsgUserImgUrl!=null and where.fuzzyMsgUserImgUrl.size()>0">
+                (
+                <foreach collection="where.fuzzyMsgUserImgUrl"  separator="or" item="item">
+                    `Msg_user_img_url` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyMsgUserImgUrl!=null and where.rightFuzzyMsgUserImgUrl.size()>0">
+                (
+                <foreach collection="where.rightFuzzyMsgUserImgUrl"  separator="or" item="item">
+                    `Msg_user_img_url` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
                 <if test="where.bookIdList != null">
                     `book_id` in
                     <foreach collection="where.bookIdList" close=")" open="(" separator="," item="item">
@@ -258,6 +290,7 @@
         <result property="msgUserGender" column="msg_user_gender"/>
         <result property="msgContent" column="msg_content"/>
         <result property="msgTime" column="msg_time"/>
+        <result property="msgUserImgUrl" column="msg_user_img_url"/>
         <result property="bookId" column="book_id"/>
         <result property="parentId" column="parent_id"/>
     </resultMap>
@@ -285,6 +318,9 @@
             </if>
             <if test="msgTime != null">
                 `msg_time` = #{msgTime} and
+            </if>
+            <if test="msgUserImgUrl != null and msgUserImgUrl!=''">
+                `msg_user_img_url` = #{msgUserImgUrl} and
             </if>
             <if test="bookId != null">
                 `book_id` = #{bookId} and
@@ -389,6 +425,26 @@
                 <if test="msgTimeEd!=null">
                     `msg_time` &lt;= #{msgTimeEd} and
                 </if>
+                <if test="msgUserImgUrlList != null">
+                    `msg_user_img_url` in
+                    <foreach collection="msgUserImgUrlList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyMsgUserImgUrl!=null and fuzzyMsgUserImgUrl.size()>0">
+                    (
+                    <foreach collection="fuzzyMsgUserImgUrl"  separator="or" item="item">
+                        `Msg_user_img_url` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyMsgUserImgUrl!=null and rightFuzzyMsgUserImgUrl.size()>0">
+                    (
+                    <foreach collection="rightFuzzyMsgUserImgUrl"  separator="or" item="item">
+                        `Msg_user_img_url` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
                 <if test="bookIdList != null">
                     `book_id` in
                     <foreach collection="bookIdList" close=")" open="(" separator="," item="item">
@@ -439,6 +495,9 @@
             </if>
             <if test="msgTime != null">
                 `msg_time` = #{msgTime} and
+            </if>
+            <if test="msgUserImgUrl != null and msgUserImgUrl!=''">
+                `msg_user_img_url` = #{msgUserImgUrl} and
             </if>
             <if test="bookId != null">
                 `book_id` = #{bookId} and
@@ -543,6 +602,26 @@
                 <if test="msgTimeEd!=null">
                     `msg_time` &lt;= #{msgTimeEd} and
                 </if>
+                    <if test="msgUserImgUrlList != null">
+                        `msg_user_img_url` in
+                        <foreach collection="msgUserImgUrlList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyMsgUserImgUrl!=null and fuzzyMsgUserImgUrl.size()>0">
+                    (
+                    <foreach collection="fuzzyMsgUserImgUrl"  separator="or" item="item">
+                        `Msg_user_img_url` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyMsgUserImgUrl!=null and rightFuzzyMsgUserImgUrl.size()>0">
+                    (
+                    <foreach collection="rightFuzzyMsgUserImgUrl"  separator="or" item="item">
+                        `Msg_user_img_url` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
                     <if test="bookIdList != null">
                         `book_id` in
                         <foreach collection="bookIdList" close=")" open="(" separator="," item="item">
@@ -580,6 +659,7 @@
         `msg_user_gender`,
         `msg_content`,
         `msg_time`,
+        `msg_user_img_url`,
         `book_id`,
         `parent_id`,
         </trim>
@@ -620,6 +700,9 @@
                     <if test="fetchFields.fetchFields.msgTime==true">
                         `msg_time`,
                     </if>
+                    <if test="fetchFields.fetchFields.msgUserImgUrl==true">
+                        `msg_user_img_url`,
+                    </if>
                     <if test="fetchFields.fetchFields.bookId==true">
                         `book_id`,
                     </if>
@@ -645,6 +728,9 @@
                     </if>
                     <if test="fetchFields.excludeFields.msgTime==null">
                         `msg_time`,
+                    </if>
+                    <if test="fetchFields.excludeFields.msgUserImgUrl==null">
+                        `msg_user_img_url`,
                     </if>
                     <if test="fetchFields.excludeFields.bookId==null">
                         `book_id`,

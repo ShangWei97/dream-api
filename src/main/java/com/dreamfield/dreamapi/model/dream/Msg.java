@@ -10,7 +10,7 @@ import java.util.List;
 */
 public class Msg implements Serializable {
 
-    private static final long serialVersionUID = 1554042358405L;
+    private static final long serialVersionUID = 1554609858238L;
 
 
     /**
@@ -54,6 +54,12 @@ public class Msg implements Serializable {
     * 
     * isNullAble:1
     */
+    private String msgUserImgUrl;
+
+    /**
+    * 
+    * isNullAble:1
+    */
     private Integer bookId;
 
     /**
@@ -87,6 +93,10 @@ public class Msg implements Serializable {
 
     public java.time.LocalDateTime getMsgTime(){return this.msgTime;}
 
+    public void setMsgUserImgUrl(String msgUserImgUrl){this.msgUserImgUrl = msgUserImgUrl;}
+
+    public String getMsgUserImgUrl(){return this.msgUserImgUrl;}
+
     public void setBookId(Integer bookId){this.bookId = bookId;}
 
     public Integer getBookId(){return this.bookId;}
@@ -103,6 +113,7 @@ public class Msg implements Serializable {
                 "msgUserGender='" + msgUserGender + '\'' +
                 "msgContent='" + msgContent + '\'' +
                 "msgTime='" + msgTime + '\'' +
+                "msgUserImgUrl='" + msgUserImgUrl + '\'' +
                 "bookId='" + bookId + '\'' +
                 "parentId='" + parentId + '\'' +
             '}';
@@ -225,6 +236,18 @@ public class Msg implements Serializable {
 
         public java.time.LocalDateTime getMsgTimeEd(){return this.msgTimeEd;}
 
+        private List<String> msgUserImgUrlList;
+
+        public List<String> getMsgUserImgUrlList(){return this.msgUserImgUrlList;}
+
+
+        private List<String> fuzzyMsgUserImgUrl;
+
+        public List<String> getFuzzyMsgUserImgUrl(){return this.fuzzyMsgUserImgUrl;}
+
+        private List<String> rightFuzzyMsgUserImgUrl;
+
+        public List<String> getRightFuzzyMsgUserImgUrl(){return this.rightFuzzyMsgUserImgUrl;}
         private List<Integer> bookIdList;
 
         public List<Integer> getBookIdList(){return this.bookIdList;}
@@ -511,6 +534,51 @@ public class Msg implements Serializable {
             return this;
         }
 
+        public QueryBuilder fuzzyMsgUserImgUrl (List<String> fuzzyMsgUserImgUrl){
+            this.fuzzyMsgUserImgUrl = fuzzyMsgUserImgUrl;
+            return this;
+        }
+
+        public QueryBuilder fuzzyMsgUserImgUrl (String ... fuzzyMsgUserImgUrl){
+            this.fuzzyMsgUserImgUrl = solveNullList(fuzzyMsgUserImgUrl);
+            return this;
+        }
+
+        public QueryBuilder rightFuzzyMsgUserImgUrl (List<String> rightFuzzyMsgUserImgUrl){
+            this.rightFuzzyMsgUserImgUrl = rightFuzzyMsgUserImgUrl;
+            return this;
+        }
+
+        public QueryBuilder rightFuzzyMsgUserImgUrl (String ... rightFuzzyMsgUserImgUrl){
+            this.rightFuzzyMsgUserImgUrl = solveNullList(rightFuzzyMsgUserImgUrl);
+            return this;
+        }
+
+        public QueryBuilder msgUserImgUrl(String msgUserImgUrl){
+            setMsgUserImgUrl(msgUserImgUrl);
+            return this;
+        }
+
+        public QueryBuilder msgUserImgUrlList(String ... msgUserImgUrl){
+            this.msgUserImgUrlList = solveNullList(msgUserImgUrl);
+            return this;
+        }
+
+        public QueryBuilder msgUserImgUrlList(List<String> msgUserImgUrl){
+            this.msgUserImgUrlList = msgUserImgUrl;
+            return this;
+        }
+
+        public QueryBuilder fetchMsgUserImgUrl(){
+            setFetchFields("fetchFields","msgUserImgUrl");
+            return this;
+        }
+
+        public QueryBuilder excludeMsgUserImgUrl(){
+            setFetchFields("excludeFields","msgUserImgUrl");
+            return this;
+        }
+
         public QueryBuilder bookIdBetWeen(Integer bookIdSt,Integer bookIdEd){
             this.bookIdSt = bookIdSt;
             this.bookIdEd = bookIdEd;
@@ -707,6 +775,18 @@ public class Msg implements Serializable {
 
         public java.time.LocalDateTime getMsgTimeEd(){return this.msgTimeEd;}
 
+        private List<String> msgUserImgUrlList;
+
+        public List<String> getMsgUserImgUrlList(){return this.msgUserImgUrlList;}
+
+
+        private List<String> fuzzyMsgUserImgUrl;
+
+        public List<String> getFuzzyMsgUserImgUrl(){return this.fuzzyMsgUserImgUrl;}
+
+        private List<String> rightFuzzyMsgUserImgUrl;
+
+        public List<String> getRightFuzzyMsgUserImgUrl(){return this.rightFuzzyMsgUserImgUrl;}
         private List<Integer> bookIdList;
 
         public List<Integer> getBookIdList(){return this.bookIdList;}
@@ -900,6 +980,36 @@ public class Msg implements Serializable {
             return this;
         }
 
+        public ConditionBuilder fuzzyMsgUserImgUrl (List<String> fuzzyMsgUserImgUrl){
+            this.fuzzyMsgUserImgUrl = fuzzyMsgUserImgUrl;
+            return this;
+        }
+
+        public ConditionBuilder fuzzyMsgUserImgUrl (String ... fuzzyMsgUserImgUrl){
+            this.fuzzyMsgUserImgUrl = solveNullList(fuzzyMsgUserImgUrl);
+            return this;
+        }
+
+        public ConditionBuilder rightFuzzyMsgUserImgUrl (List<String> rightFuzzyMsgUserImgUrl){
+            this.rightFuzzyMsgUserImgUrl = rightFuzzyMsgUserImgUrl;
+            return this;
+        }
+
+        public ConditionBuilder rightFuzzyMsgUserImgUrl (String ... rightFuzzyMsgUserImgUrl){
+            this.rightFuzzyMsgUserImgUrl = solveNullList(rightFuzzyMsgUserImgUrl);
+            return this;
+        }
+
+        public ConditionBuilder msgUserImgUrlList(String ... msgUserImgUrl){
+            this.msgUserImgUrlList = solveNullList(msgUserImgUrl);
+            return this;
+        }
+
+        public ConditionBuilder msgUserImgUrlList(List<String> msgUserImgUrl){
+            this.msgUserImgUrlList = msgUserImgUrl;
+            return this;
+        }
+
         public ConditionBuilder bookIdBetWeen(Integer bookIdSt,Integer bookIdEd){
             this.bookIdSt = bookIdSt;
             this.bookIdEd = bookIdEd;
@@ -998,6 +1108,10 @@ public class Msg implements Serializable {
         }
         public Builder msgTime(java.time.LocalDateTime msgTime){
             this.obj.setMsgTime(msgTime);
+            return this;
+        }
+        public Builder msgUserImgUrl(String msgUserImgUrl){
+            this.obj.setMsgUserImgUrl(msgUserImgUrl);
             return this;
         }
         public Builder bookId(Integer bookId){
