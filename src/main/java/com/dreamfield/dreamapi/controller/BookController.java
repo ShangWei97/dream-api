@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+
 /**
  * @author: shangwei
  * @date: 2019-04-06 17:38
@@ -26,6 +28,7 @@ public class BookController {
 	public ReturnMsg addBook(@RequestBody AddBookReqBean reqBean){
 		ReturnMsg returnMsg = new ReturnMsg();
 		Book book = new Book();
+		book.setBookTime(LocalDateTime.now());
 		book.setBookName(reqBean.getBookName());
 		book.setUserId(reqBean.getUserId());
 		book.setBookAuthor(reqBean.getBookAuthor());

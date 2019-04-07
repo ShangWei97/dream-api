@@ -1,4 +1,6 @@
 package com.dreamfield.dreamapi.model.dream;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,6 +68,7 @@ public class Book implements Serializable {
     * 
     * isNullAble:1
     */
+    @JsonFormat(pattern="yyyy-MM-dd HH-mm-ss")
     private java.time.LocalDateTime bookTime;
 
     /**
