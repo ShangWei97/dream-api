@@ -82,7 +82,7 @@ public class BookController {
 			response.setUserGender(user.getSex());
 			response.setUserImgUrl(userInfo.getImgUrl());
 			response.setUserName(user.getUserName());
-			if ( msgList != null && msgList.size() >1){
+			if ( msgList != null && msgList.size() >0){
 				response.setMsgSize(msgList.size());
 			}else {
 				response.setMsgSize(0);
