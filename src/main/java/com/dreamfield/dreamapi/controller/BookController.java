@@ -2,9 +2,11 @@ package com.dreamfield.dreamapi.controller;
 
 import com.dreamfield.dreamapi.constant.ReturnMsg;
 import com.dreamfield.dreamapi.mapper.dream.BookMapper;
+import com.dreamfield.dreamapi.mapper.dream.MsgMapper;
 import com.dreamfield.dreamapi.mapper.dream.UserInfoMapper;
 import com.dreamfield.dreamapi.mapper.dream.UserMapper;
 import com.dreamfield.dreamapi.model.dream.Book;
+import com.dreamfield.dreamapi.model.dream.Msg;
 import com.dreamfield.dreamapi.model.dream.User;
 import com.dreamfield.dreamapi.model.dream.UserInfo;
 import com.dreamfield.dreamapi.request.AddBookReqBean;
@@ -33,6 +35,9 @@ public class BookController {
 
 	@Autowired
 	private UserInfoMapper userInfoMapper;
+
+	@Autowired
+	private MsgMapper msgMapper;
 
 
 	@PostMapping("addBook")
@@ -66,14 +71,22 @@ public class BookController {
 			GetAllBookResponse response = new GetAllBookResponse();
 			User user_param = new User();
 			UserInfo userInfo_param = new UserInfo();
+			Msg msg_param = new Msg();
 			user_param.setId(book.getUserId());
 			userInfo_param.setUserId(book.getUserId());
+			msg_param.setBookId(book.getId());
 			User user = userMapper.queryUserLimit1(user_param);
 			UserInfo userInfo = userInfoMapper.queryUserInfoLimit1(userInfo_param);
+			List<Msg> msgList = msgMapper.queryMsg(msg_param);
 			BeanUtils.copyProperties(book,response);
 			response.setUserGender(user.getSex());
 			response.setUserImgUrl(userInfo.getImgUrl());
 			response.setUserName(user.getUserName());
+			if ( msgList != null && msgList.size() >1){
+				response.setMsgSize(msgList.size());
+			}else {
+				response.setMsgSize(0);
+			}
 			responseList.add(response);
 		}
 		returnMsg.setData(responseList);
