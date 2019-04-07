@@ -54,7 +54,8 @@ public class MsgController {
 			msg.setParentId(reqBean.getParentId());
 		}
 		msgMapper.insertMsg(msg);
-		returnMsg.setData(msg.getId());
+		Msg msg_result = msgMapper.queryMsgLimit1(msg);
+		returnMsg.setData(msg_result.getId());
 		return returnMsg;
 	}
 
