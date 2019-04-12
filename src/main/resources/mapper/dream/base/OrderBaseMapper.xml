@@ -32,6 +32,9 @@
                     <if test="price!=null">
                         `price`,
                     </if>
+                    <if test="statusId!=null">
+                        `status_id`,
+                    </if>
         </trim>
         )
         VALUES
@@ -60,6 +63,9 @@
                 </if>
                 <if test="price!=null">
                     #{price},
+                </if>
+                <if test="statusId!=null">
+                    #{statusId},
                 </if>
         </trim>
         )
@@ -93,6 +99,9 @@
             <if test="price != null">
                 `price` = #{price},
             </if>
+            <if test="statusId != null">
+                `status_id` = #{statusId},
+            </if>
         </trim>
         WHERE
         <trim suffixOverrides="and">
@@ -124,6 +133,9 @@
         </if>
         <if test="set.price != null">
             `price` = #{set.price},
+        </if>
+        <if test="set.statusId != null">
+            `status_id` = #{set.statusId},
         </if>
         </trim>
         <trim prefix="where" suffixOverrides="and | or">
@@ -231,6 +243,18 @@
             <if test="where.priceEd!=null">
                 `price` &lt;= #{where.priceEd} and
             </if>
+                <if test="where.statusIdList != null">
+                    `status_id` in
+                    <foreach collection="where.statusIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.statusIdSt !=null">
+                `status_id` >= #{where.statusIdSt} and
+            </if>
+            <if test="where.statusIdEd!=null">
+                `status_id` &lt;= #{where.statusIdEd} and
+            </if>
         </trim>
     </update>
 
@@ -244,6 +268,7 @@
         <result property="buyerId" column="buyer_id"/>
         <result property="bookId" column="book_id"/>
         <result property="price" column="price"/>
+        <result property="statusId" column="status_id"/>
     </resultMap>
 
 
@@ -275,6 +300,9 @@
             </if>
             <if test="price != null">
                 `price` = #{price} and
+            </if>
+            <if test="statusId != null">
+                `status_id` = #{statusId} and
             </if>
             <if test = "(_parameter instanceof com.dreamfield.dreamapi.model.dream.Order$QueryBuilder) == true">
                 <if test="idList != null">
@@ -381,6 +409,18 @@
                 <if test="priceEd!=null">
                     `price` &lt;= #{priceEd} and
                 </if>
+                <if test="statusIdList != null">
+                    `status_id` in
+                    <foreach collection="statusIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="statusIdSt !=null">
+                    `status_id` >= #{statusIdSt} and
+                </if>
+                <if test="statusIdEd!=null">
+                    `status_id` &lt;= #{statusIdEd} and
+                </if>
             </if>
         </trim>
     </select>
@@ -413,6 +453,9 @@
             </if>
             <if test="price != null">
                 `price` = #{price} and
+            </if>
+            <if test="statusId != null">
+                `status_id` = #{statusId} and
             </if>
             <if test = "(_parameter instanceof com.dreamfield.dreamapi.model.dream.Order$QueryBuilder) == true">
                     <if test="idList != null">
@@ -519,6 +562,18 @@
                 <if test="priceEd!=null">
                     `price` &lt;= #{priceEd} and
                 </if>
+                    <if test="statusIdList != null">
+                        `status_id` in
+                        <foreach collection="statusIdList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="statusIdSt !=null">
+                    `status_id` >= #{statusIdSt} and
+                </if>
+                <if test="statusIdEd!=null">
+                    `status_id` &lt;= #{statusIdEd} and
+                </if>
             </if>
         </trim>
         limit 1
@@ -534,6 +589,7 @@
         `buyer_id`,
         `book_id`,
         `price`,
+        `status_id`,
         </trim>
     </sql>
 
@@ -578,6 +634,9 @@
                     <if test="fetchFields.fetchFields.price==true">
                         `price`,
                     </if>
+                    <if test="fetchFields.fetchFields.statusId==true">
+                        `status_id`,
+                    </if>
                     </if>
                     <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
                     <if test="fetchFields.excludeFields.id==null">
@@ -603,6 +662,9 @@
                     </if>
                     <if test="fetchFields.excludeFields.price==null">
                         `price`,
+                    </if>
+                    <if test="fetchFields.excludeFields.statusId==null">
+                        `status_id`,
                     </if>
                     </if>
                     <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">

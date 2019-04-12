@@ -10,7 +10,7 @@ import java.util.List;
 */
 public class Order implements Serializable {
 
-    private static final long serialVersionUID = 1554985677846L;
+    private static final long serialVersionUID = 1555055767073L;
 
 
     /**
@@ -62,6 +62,12 @@ public class Order implements Serializable {
     */
     private java.math.BigDecimal price;
 
+    /**
+    * 
+    * isNullAble:1
+    */
+    private Integer statusId;
+
 
     public void setId(Integer id){this.id = id;}
 
@@ -94,6 +100,10 @@ public class Order implements Serializable {
     public void setPrice(java.math.BigDecimal price){this.price = price;}
 
     public java.math.BigDecimal getPrice(){return this.price;}
+
+    public void setStatusId(Integer statusId){this.statusId = statusId;}
+
+    public Integer getStatusId(){return this.statusId;}
     @Override
     public String toString() {
         return "Order{" +
@@ -105,6 +115,7 @@ public class Order implements Serializable {
                 "buyerId='" + buyerId + '\'' +
                 "bookId='" + bookId + '\'' +
                 "price='" + price + '\'' +
+                "statusId='" + statusId + '\'' +
             '}';
     }
 
@@ -248,6 +259,18 @@ public class Order implements Serializable {
         public java.math.BigDecimal getPriceSt(){return this.priceSt;}
 
         public java.math.BigDecimal getPriceEd(){return this.priceEd;}
+
+        private List<Integer> statusIdList;
+
+        public List<Integer> getStatusIdList(){return this.statusIdList;}
+
+        private Integer statusIdSt;
+
+        private Integer statusIdEd;
+
+        public Integer getStatusIdSt(){return this.statusIdSt;}
+
+        public Integer getStatusIdEd(){return this.statusIdEd;}
 
         private QueryBuilder (){
             this.fetchFields = new HashMap<>();
@@ -584,6 +607,47 @@ public class Order implements Serializable {
             setFetchFields("excludeFields","price");
             return this;
         }
+
+        public QueryBuilder statusIdBetWeen(Integer statusIdSt,Integer statusIdEd){
+            this.statusIdSt = statusIdSt;
+            this.statusIdEd = statusIdEd;
+            return this;
+        }
+
+        public QueryBuilder statusIdGreaterEqThan(Integer statusIdSt){
+            this.statusIdSt = statusIdSt;
+            return this;
+        }
+        public QueryBuilder statusIdLessEqThan(Integer statusIdEd){
+            this.statusIdEd = statusIdEd;
+            return this;
+        }
+
+
+        public QueryBuilder statusId(Integer statusId){
+            setStatusId(statusId);
+            return this;
+        }
+
+        public QueryBuilder statusIdList(Integer ... statusId){
+            this.statusIdList = solveNullList(statusId);
+            return this;
+        }
+
+        public QueryBuilder statusIdList(List<Integer> statusId){
+            this.statusIdList = statusId;
+            return this;
+        }
+
+        public QueryBuilder fetchStatusId(){
+            setFetchFields("fetchFields","statusId");
+            return this;
+        }
+
+        public QueryBuilder excludeStatusId(){
+            setFetchFields("excludeFields","statusId");
+            return this;
+        }
         private <T>List<T> solveNullList(T ... objs){
             if (objs != null){
             List<T> list = new ArrayList<>();
@@ -722,6 +786,18 @@ public class Order implements Serializable {
         public java.math.BigDecimal getPriceSt(){return this.priceSt;}
 
         public java.math.BigDecimal getPriceEd(){return this.priceEd;}
+
+        private List<Integer> statusIdList;
+
+        public List<Integer> getStatusIdList(){return this.statusIdList;}
+
+        private Integer statusIdSt;
+
+        private Integer statusIdEd;
+
+        public Integer getStatusIdSt(){return this.statusIdSt;}
+
+        public Integer getStatusIdEd(){return this.statusIdEd;}
 
 
         public ConditionBuilder idBetWeen(Integer idSt,Integer idEd){
@@ -936,6 +1012,32 @@ public class Order implements Serializable {
             return this;
         }
 
+        public ConditionBuilder statusIdBetWeen(Integer statusIdSt,Integer statusIdEd){
+            this.statusIdSt = statusIdSt;
+            this.statusIdEd = statusIdEd;
+            return this;
+        }
+
+        public ConditionBuilder statusIdGreaterEqThan(Integer statusIdSt){
+            this.statusIdSt = statusIdSt;
+            return this;
+        }
+        public ConditionBuilder statusIdLessEqThan(Integer statusIdEd){
+            this.statusIdEd = statusIdEd;
+            return this;
+        }
+
+
+        public ConditionBuilder statusIdList(Integer ... statusId){
+            this.statusIdList = solveNullList(statusId);
+            return this;
+        }
+
+        public ConditionBuilder statusIdList(List<Integer> statusId){
+            this.statusIdList = statusId;
+            return this;
+        }
+
         private <T>List<T> solveNullList(T ... objs){
             if (objs != null){
             List<T> list = new ArrayList<>();
@@ -990,6 +1092,10 @@ public class Order implements Serializable {
         }
         public Builder price(java.math.BigDecimal price){
             this.obj.setPrice(price);
+            return this;
+        }
+        public Builder statusId(Integer statusId){
+            this.obj.setStatusId(statusId);
             return this;
         }
         public Order build(){return obj;}
