@@ -150,7 +150,7 @@ public class BookController {
 			return returnMsg;
 		}
 		userInfo_param.setMoney(money);
-		userInfoMapper.insertUserInfo(userInfo_param);
+		userInfoMapper.updateUserInfo(userInfo_param);
 		Order order = new Order();
 		order.setSellerId(reqBean.getOwnerId());
 		order.setBookId(reqBean.getBookId());
