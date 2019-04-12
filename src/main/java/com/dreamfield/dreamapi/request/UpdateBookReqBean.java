@@ -17,4 +17,6 @@ public class UpdateBookReqBean {
 
 	private Integer bookNum;
 
+	private Integer userId;
+
 }

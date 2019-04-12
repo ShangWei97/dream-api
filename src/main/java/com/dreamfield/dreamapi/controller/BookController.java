@@ -98,10 +98,16 @@ public class BookController {
 		ReturnMsg returnMsg = new ReturnMsg();
 		Book book = new Book();
 		book.setId(reqBean.getBookId());
-		book.setBookNum(reqBean.getBookNum());
-		book.setBookPriceNow(reqBean.getBookPriceNow());
-		bookMapper.updateBook(book);
-		return returnMsg;
+		Book book_result = bookMapper.queryBookLimit1(book);
+		if (book_result!= null && book_result.getUserId().equals(reqBean.getUserId())){
+			book.setBookNum(reqBean.getBookNum());
+			book.setBookPriceNow(reqBean.getBookPriceNow());
+			bookMapper.updateBook(book);
+			return returnMsg;
+		}else {
+			returnMsg.setStatus(false);
+			return returnMsg;
+		}
 	}
 
 	@PostMapping("deleteBook")
