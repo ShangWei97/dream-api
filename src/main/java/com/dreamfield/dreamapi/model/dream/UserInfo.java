@@ -10,7 +10,7 @@ import java.util.List;
 */
 public class UserInfo implements Serializable {
 
-    private static final long serialVersionUID = 1554040538912L;
+    private static final long serialVersionUID = 1554634020039L;
 
 
     /**
@@ -38,6 +38,12 @@ public class UserInfo implements Serializable {
     */
     private String userSignature;
 
+    /**
+    * 
+    * isNullAble:1
+    */
+    private java.math.BigDecimal money;
+
 
     public void setId(Integer id){this.id = id;}
 
@@ -54,6 +60,10 @@ public class UserInfo implements Serializable {
     public void setUserSignature(String userSignature){this.userSignature = userSignature;}
 
     public String getUserSignature(){return this.userSignature;}
+
+    public void setMoney(java.math.BigDecimal money){this.money = money;}
+
+    public java.math.BigDecimal getMoney(){return this.money;}
     @Override
     public String toString() {
         return "UserInfo{" +
@@ -61,6 +71,7 @@ public class UserInfo implements Serializable {
                 "userId='" + userId + '\'' +
                 "imgUrl='" + imgUrl + '\'' +
                 "userSignature='" + userSignature + '\'' +
+                "money='" + money + '\'' +
             '}';
     }
 
@@ -157,6 +168,18 @@ public class UserInfo implements Serializable {
         private List<String> rightFuzzyUserSignature;
 
         public List<String> getRightFuzzyUserSignature(){return this.rightFuzzyUserSignature;}
+        private List<java.math.BigDecimal> moneyList;
+
+        public List<java.math.BigDecimal> getMoneyList(){return this.moneyList;}
+
+        private java.math.BigDecimal moneySt;
+
+        private java.math.BigDecimal moneyEd;
+
+        public java.math.BigDecimal getMoneySt(){return this.moneySt;}
+
+        public java.math.BigDecimal getMoneyEd(){return this.moneyEd;}
+
         private QueryBuilder (){
             this.fetchFields = new HashMap<>();
         }
@@ -332,6 +355,47 @@ public class UserInfo implements Serializable {
             setFetchFields("excludeFields","userSignature");
             return this;
         }
+
+        public QueryBuilder moneyBetWeen(java.math.BigDecimal moneySt,java.math.BigDecimal moneyEd){
+            this.moneySt = moneySt;
+            this.moneyEd = moneyEd;
+            return this;
+        }
+
+        public QueryBuilder moneyGreaterEqThan(java.math.BigDecimal moneySt){
+            this.moneySt = moneySt;
+            return this;
+        }
+        public QueryBuilder moneyLessEqThan(java.math.BigDecimal moneyEd){
+            this.moneyEd = moneyEd;
+            return this;
+        }
+
+
+        public QueryBuilder money(java.math.BigDecimal money){
+            setMoney(money);
+            return this;
+        }
+
+        public QueryBuilder moneyList(java.math.BigDecimal ... money){
+            this.moneyList = solveNullList(money);
+            return this;
+        }
+
+        public QueryBuilder moneyList(List<java.math.BigDecimal> money){
+            this.moneyList = money;
+            return this;
+        }
+
+        public QueryBuilder fetchMoney(){
+            setFetchFields("fetchFields","money");
+            return this;
+        }
+
+        public QueryBuilder excludeMoney(){
+            setFetchFields("excludeFields","money");
+            return this;
+        }
         private <T>List<T> solveNullList(T ... objs){
             if (objs != null){
             List<T> list = new ArrayList<>();
@@ -423,6 +487,18 @@ public class UserInfo implements Serializable {
         private List<String> rightFuzzyUserSignature;
 
         public List<String> getRightFuzzyUserSignature(){return this.rightFuzzyUserSignature;}
+        private List<java.math.BigDecimal> moneyList;
+
+        public List<java.math.BigDecimal> getMoneyList(){return this.moneyList;}
+
+        private java.math.BigDecimal moneySt;
+
+        private java.math.BigDecimal moneyEd;
+
+        public java.math.BigDecimal getMoneySt(){return this.moneySt;}
+
+        public java.math.BigDecimal getMoneyEd(){return this.moneyEd;}
+
 
         public ConditionBuilder idBetWeen(Integer idSt,Integer idEd){
             this.idSt = idSt;
@@ -536,6 +612,32 @@ public class UserInfo implements Serializable {
             return this;
         }
 
+        public ConditionBuilder moneyBetWeen(java.math.BigDecimal moneySt,java.math.BigDecimal moneyEd){
+            this.moneySt = moneySt;
+            this.moneyEd = moneyEd;
+            return this;
+        }
+
+        public ConditionBuilder moneyGreaterEqThan(java.math.BigDecimal moneySt){
+            this.moneySt = moneySt;
+            return this;
+        }
+        public ConditionBuilder moneyLessEqThan(java.math.BigDecimal moneyEd){
+            this.moneyEd = moneyEd;
+            return this;
+        }
+
+
+        public ConditionBuilder moneyList(java.math.BigDecimal ... money){
+            this.moneyList = solveNullList(money);
+            return this;
+        }
+
+        public ConditionBuilder moneyList(List<java.math.BigDecimal> money){
+            this.moneyList = money;
+            return this;
+        }
+
         private <T>List<T> solveNullList(T ... objs){
             if (objs != null){
             List<T> list = new ArrayList<>();
@@ -574,6 +676,10 @@ public class UserInfo implements Serializable {
         }
         public Builder userSignature(String userSignature){
             this.obj.setUserSignature(userSignature);
+            return this;
+        }
+        public Builder money(java.math.BigDecimal money){
+            this.obj.setMoney(money);
             return this;
         }
         public UserInfo build(){return obj;}

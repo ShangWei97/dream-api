@@ -20,6 +20,9 @@
                     <if test="userSignature!=null">
                         `user_signature`,
                     </if>
+                    <if test="money!=null">
+                        `money`,
+                    </if>
         </trim>
         )
         VALUES
@@ -36,6 +39,9 @@
                 </if>
                 <if test="userSignature!=null">
                     #{userSignature},
+                </if>
+                <if test="money!=null">
+                    #{money},
                 </if>
         </trim>
         )
@@ -57,6 +63,9 @@
             <if test="userSignature != null and userSignature!=''">
                 `user_signature` = #{userSignature},
             </if>
+            <if test="money != null">
+                `money` = #{money},
+            </if>
         </trim>
         WHERE
         <trim suffixOverrides="and">
@@ -76,6 +85,9 @@
         </if>
         <if test="set.userSignature != null and set.userSignature!=''">
             `user_signature` = #{set.userSignature},
+        </if>
+        <if test="set.money != null">
+            `money` = #{set.money},
         </if>
         </trim>
         <trim prefix="where" suffixOverrides="and | or">
@@ -143,6 +155,18 @@
                 </foreach>
                 ) and
             </if>
+                <if test="where.moneyList != null">
+                    `money` in
+                    <foreach collection="where.moneyList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.moneySt !=null">
+                `money` >= #{where.moneySt} and
+            </if>
+            <if test="where.moneyEd!=null">
+                `money` &lt;= #{where.moneyEd} and
+            </if>
         </trim>
     </update>
 
@@ -152,6 +176,7 @@
         <result property="userId" column="user_id"/>
         <result property="imgUrl" column="img_url"/>
         <result property="userSignature" column="user_signature"/>
+        <result property="money" column="money"/>
     </resultMap>
 
 
@@ -171,6 +196,9 @@
             </if>
             <if test="userSignature != null and userSignature!=''">
                 `user_signature` = #{userSignature} and
+            </if>
+            <if test="money != null">
+                `money` = #{money} and
             </if>
             <if test = "(_parameter instanceof com.dreamfield.dreamapi.model.dream.UserInfo$QueryBuilder) == true">
                 <if test="idList != null">
@@ -237,6 +265,18 @@
                     </foreach>
                     ) and
                 </if>
+                <if test="moneyList != null">
+                    `money` in
+                    <foreach collection="moneyList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="moneySt !=null">
+                    `money` >= #{moneySt} and
+                </if>
+                <if test="moneyEd!=null">
+                    `money` &lt;= #{moneyEd} and
+                </if>
             </if>
         </trim>
     </select>
@@ -257,6 +297,9 @@
             </if>
             <if test="userSignature != null and userSignature!=''">
                 `user_signature` = #{userSignature} and
+            </if>
+            <if test="money != null">
+                `money` = #{money} and
             </if>
             <if test = "(_parameter instanceof com.dreamfield.dreamapi.model.dream.UserInfo$QueryBuilder) == true">
                     <if test="idList != null">
@@ -323,6 +366,18 @@
                     </foreach>
                     ) and
                 </if>
+                    <if test="moneyList != null">
+                        `money` in
+                        <foreach collection="moneyList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="moneySt !=null">
+                    `money` >= #{moneySt} and
+                </if>
+                <if test="moneyEd!=null">
+                    `money` &lt;= #{moneyEd} and
+                </if>
             </if>
         </trim>
         limit 1
@@ -334,6 +389,7 @@
         `user_id`,
         `img_url`,
         `user_signature`,
+        `money`,
         </trim>
     </sql>
 
@@ -366,6 +422,9 @@
                     <if test="fetchFields.fetchFields.userSignature==true">
                         `user_signature`,
                     </if>
+                    <if test="fetchFields.fetchFields.money==true">
+                        `money`,
+                    </if>
                     </if>
                     <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
                     <if test="fetchFields.excludeFields.id==null">
@@ -379,6 +438,9 @@
                     </if>
                     <if test="fetchFields.excludeFields.userSignature==null">
                         `user_signature`,
+                    </if>
+                    <if test="fetchFields.excludeFields.money==null">
+                        `money`,
                     </if>
                     </if>
                     <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">

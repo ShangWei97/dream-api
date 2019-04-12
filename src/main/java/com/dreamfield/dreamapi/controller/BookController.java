@@ -1,15 +1,12 @@
 package com.dreamfield.dreamapi.controller;
 
 import com.dreamfield.dreamapi.constant.ReturnMsg;
-import com.dreamfield.dreamapi.mapper.dream.BookMapper;
-import com.dreamfield.dreamapi.mapper.dream.MsgMapper;
-import com.dreamfield.dreamapi.mapper.dream.UserInfoMapper;
-import com.dreamfield.dreamapi.mapper.dream.UserMapper;
-import com.dreamfield.dreamapi.model.dream.Book;
-import com.dreamfield.dreamapi.model.dream.Msg;
-import com.dreamfield.dreamapi.model.dream.User;
-import com.dreamfield.dreamapi.model.dream.UserInfo;
+import com.dreamfield.dreamapi.mapper.dream.*;
+import com.dreamfield.dreamapi.model.dream.*;
 import com.dreamfield.dreamapi.request.AddBookReqBean;
+import com.dreamfield.dreamapi.request.BuyBookReqBean;
+import com.dreamfield.dreamapi.request.DeleteBookReqBean;
+import com.dreamfield.dreamapi.request.UpdateBookReqBean;
 import com.dreamfield.dreamapi.response.GetAllBookResponse;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +35,9 @@ public class BookController {
 
 	@Autowired
 	private MsgMapper msgMapper;
+
+	@Autowired
+	private OrderMapper orderMapper;
 
 
 	@PostMapping("addBook")
@@ -93,8 +93,41 @@ public class BookController {
 		return returnMsg;
 	}
 
+	@PostMapping("updateBook")
+	public ReturnMsg updateBook(@RequestBody UpdateBookReqBean reqBean){
+		ReturnMsg returnMsg = new ReturnMsg();
+		Book book = new Book();
+		book.setId(reqBean.getBookId());
+		book.setBookNum(reqBean.getBookNum());
+		book.setBookPriceNow(reqBean.getBookPriceNow());
+		bookMapper.updateBook(book);
+		return returnMsg;
+	}
+
+	@PostMapping("deleteBook")
+	public ReturnMsg deleteBook(@RequestBody DeleteBookReqBean reqBean){
+		ReturnMsg returnMsg = new ReturnMsg();
+		Book book = new Book();
+		book.setId(reqBean.getBookId());
+		Book book_result = bookMapper.queryBookLimit1(book);
+		if (book_result != null && reqBean.getUserId().equals(book_result.getUserId())){
+			book.setValid(0);
+			bookMapper.updateBook(book);
+			return returnMsg;
+		}else {
+			returnMsg.setStatus(false);
+			return returnMsg;
+		}
+	}
+
+	@PostMapping("buyBook")
+	public ReturnMsg bugBook(@RequestBody BuyBookReqBean reqBean){
+		ReturnMsg returnMsg = new ReturnMsg();
+		Order order = new Order();
 
 
+		return returnMsg;
+	}
 
 
 }
