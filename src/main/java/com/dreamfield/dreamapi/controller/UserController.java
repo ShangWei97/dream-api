@@ -265,10 +265,14 @@ public class UserController {
 		UserInfo userInfo = userInfoMapper.queryUserInfoLimit1(userInfo_param);
 		Book book = new Book();
 		book.setUserId(reqBean.getUserId());
+		book.setValid(1);
 		List<Book> bookList = bookMapper.queryBook(book);
 		response.setUserName(user.getUserName());
 		if (null != userInfo && null != userInfo.getImgUrl()) {
 			response.setUserImgUrl(userInfo.getImgUrl());
+			if ( null != userInfo.getMoney()){
+				response.setMoney(userInfo.getMoney());
+			}
 		}
 		response.setTelNumber(user.getUserTel());
 		response.setUserGender(user.getSex());

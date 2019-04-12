@@ -3,6 +3,7 @@ package com.dreamfield.dreamapi.response;
 import com.dreamfield.dreamapi.model.dream.Book;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -21,6 +22,8 @@ public class GetUserInfoResponse {
 	private String userGender;
 
 	private String userSignature;
+
+	private BigDecimal money;
 
 	private List<Book> sellBookList;
 
