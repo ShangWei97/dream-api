@@ -78,7 +78,7 @@ public class UserController {
 					returnMsg.setMsg("登录成功");
 					returnMsg.setData(user1.getId());
 					Cookie cookie = new Cookie("userId", user1.getId().toString());
-					cookie.setPath(request.getContextPath());
+					cookie.setPath("/");
 					cookie.setMaxAge(80000);
 					response.addCookie(cookie);
 					return returnMsg;
@@ -102,7 +102,7 @@ public class UserController {
 	                returnMsg.setMsg("登录成功");
 	                returnMsg.setData(user1.getId());
 	                Cookie cookie = new Cookie("userId", user1.getId().toString());
-	                cookie.setPath(request.getContextPath());
+	                cookie.setPath("/");
 	                cookie.setMaxAge(80000);
 	                response.addCookie(cookie);
 	                return returnMsg;
