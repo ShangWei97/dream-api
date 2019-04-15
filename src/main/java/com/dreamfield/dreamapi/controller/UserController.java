@@ -16,6 +16,9 @@ import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +53,7 @@ public class UserController {
 	private final String tpl_id_gat="TP1809092";
 
 	@PostMapping("login")
-	public ReturnMsg login(@RequestBody LoginReqBean reqBean){
+	public ReturnMsg login(@RequestBody LoginReqBean reqBean, HttpServletResponse response, HttpServletRequest request){
 		log.debug("login param:",reqBean);
 		ReturnMsg returnMsg = new ReturnMsg();
 		if ( null == reqBean.getUserTel()){
@@ -74,6 +77,10 @@ public class UserController {
 				if ( reqBean.getPassword().equals(user1.getPassword())) {
 					returnMsg.setMsg("登录成功");
 					returnMsg.setData(user1.getId());
+					Cookie cookie = new Cookie("userId", user1.getId().toString());
+					cookie.setPath(request.getContextPath());
+					cookie.setMaxAge(80000);
+					response.addCookie(cookie);
 					return returnMsg;
 				}else {
 					returnMsg.setMsg("登录失败,密码错误");
@@ -94,6 +101,10 @@ public class UserController {
                 if (user1 != null) {
 	                returnMsg.setMsg("登录成功");
 	                returnMsg.setData(user1.getId());
+	                Cookie cookie = new Cookie("userId", user1.getId().toString());
+	                cookie.setPath(request.getContextPath());
+	                cookie.setMaxAge(80000);
+	                response.addCookie(cookie);
 	                return returnMsg;
                 }else {
 	                returnMsg.setMsg("登录失败,验证码错误");
