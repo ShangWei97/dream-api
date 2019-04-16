@@ -14,7 +14,7 @@ public class StringUtil {
 		}
 		return array;
 	}
-	
+
 	/**
 	 * 判断字符串是否为空对象或空字符串
 	 * @param string

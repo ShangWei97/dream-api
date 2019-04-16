@@ -20,7 +20,8 @@ public class CORSConfiguration{
     		@Override
 		    public void addCorsMappings(CorsRegistry registry) {
 			    //设置访问的IP和端口，此代表所有都可以访问
-    			registry.addMapping("/**");
+    			registry.addMapping("/**")
+					    .allowCredentials(true);//设置成允许操作cookie
     		}
 		};
 	}

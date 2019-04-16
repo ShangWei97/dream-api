@@ -253,6 +253,7 @@ public class UserController {
 		userInfo_param.setUserId(reqBean.getUserId());
 		UserInfo userInfo_result = userInfoMapper.queryUserInfoLimit1(userInfo_param);
 		if ( userInfo_result != null) {
+			userInfo.setId(userInfo_result.getId());
 			userInfoMapper.updateUserInfo(userInfo);
 		}else {
 			userInfoMapper.insertUserInfo(userInfo);
