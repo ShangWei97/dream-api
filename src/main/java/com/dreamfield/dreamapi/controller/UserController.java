@@ -296,4 +296,20 @@ public class UserController {
 		return returnMsg;
 	}
 
+	@PostMapping("register/app")
+	public ReturnMsg registerApp(@RequestBody RegisterReqBean reqBean){
+		ReturnMsg returnMsg = new ReturnMsg();
+		User user_param = new User();
+		user_param.setUserTel(reqBean.getUserTel());
+		User user = userMapper.queryUserLimit1(user_param);
+		if (user != null){
+			returnMsg.setStatus(false);
+			returnMsg.setMsg("该用户已经注册过");
+			return returnMsg;
+		}
+		user_param.setPassword(reqBean.getPassword());
+		userMapper.insertUser(user_param);
+		return returnMsg;
+	}
+
 }
