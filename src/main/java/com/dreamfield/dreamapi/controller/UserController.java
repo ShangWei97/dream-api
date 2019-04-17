@@ -303,8 +303,9 @@ public class UserController {
 		user_param.setUserTel(reqBean.getUserTel());
 		User user = userMapper.queryUserLimit1(user_param);
 		if (user != null){
-			returnMsg.setStatus(false);
-			returnMsg.setMsg("该用户已经注册过");
+			user_param.setPassword(reqBean.getPassword());
+			user_param.setId(user.getId());
+			userMapper.updateUser(user_param);
 			return returnMsg;
 		}
 		user_param.setPassword(reqBean.getPassword());
